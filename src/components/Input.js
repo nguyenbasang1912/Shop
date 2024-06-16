@@ -1,27 +1,24 @@
-import React, { useCallback, useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View
-} from 'react-native';
+import React, {useCallback, useState} from 'react';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
-import { colors, containerAttr, typography } from '../utils/styles';
+import {colors, containerAttr, typography} from '../utils/styles';
 import Spacer from './Spacer';
 
 const Input = ({
   placeholder = 'Input',
   leftIcon = 'email',
+  leftNodeIcon,
   value,
   onChange,
   err = '',
-  iconSize = 20
+  iconSize = 20,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const renderLeft = useCallback(() => {
-
-    return (
+    return leftNodeIcon ? (
+      <>{leftNodeIcon}</>
+    ) : (
       <>
         <View>
           <Icon
@@ -32,7 +29,7 @@ const Input = ({
                 ? !!err
                   ? colors.red
                   : colors.primary
-                : colors.primary || colors.grey
+                : colors.grey
             }
           />
         </View>

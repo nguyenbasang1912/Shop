@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { colors } from '../utils/styles';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {colors} from '../utils/styles';
 import Spacer from './Spacer';
 
 const CButton = ({
@@ -29,7 +29,8 @@ const CButton = ({
       style={[
         styles.main,
         wrapcontent ? styles.wrapper : styles.default,
-        isOutlineButton && styles.outline && {borderColor: borderColor},
+        isOutlineButton && styles.outline,
+        {borderColor: borderColor},
         style,
       ]}>
       {leftIcon ? renderLeft() : <Spacer w={0} />}
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: 'auto',
-    height: 'auto'
+    height: 'auto',
   },
   wrapper: {
     width: 'auto',
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     padding: 16,
     borderRadius: 5,
-    alignSelf: 'baseline'
+    alignSelf: 'baseline',
   },
   default: {
     width: '100%',

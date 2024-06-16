@@ -1,0 +1,25 @@
+{
+    "login": {
+        "label": "Welcome to Lafyuu",
+        "description": "Sign in to continue",
+        "signin": "Sign In",
+        "or": "OR",
+        "googleSignIn": "Login with Google",
+        "facebookSignIn": "Login with facebook",
+        "forgotPassword": "Forgot Password?",
+        "account": "Don’t have a account?",
+        "register": "Register"
+    },
+    "input": {
+        "email": "Your Email",
+        "password": "Password",
+        "name": "Full Name",
+        "repass": "Password Again"
+    },
+    "register": {
+        "label": "Let’s Get Started",
+        "description": "Create an new account",
+        "signup": "Sign Up",
+        "account": "have a account?"
+    }
+}
