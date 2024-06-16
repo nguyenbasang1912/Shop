@@ -24,6 +24,12 @@ export const typography = StyleSheet.create({
         fontWeight: '700',
         lineHeight: 21.6,
         color: colors.grey
+    },
+    pressable: {
+        fontSize: 12,
+        color: colors.grey,
+        lineHeight: 21.6,
+        fontWeight: '700'
     }
 })
 

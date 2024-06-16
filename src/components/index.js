@@ -1,1 +1,4 @@
 export * from './Input'
+export * from './Spacer'
+export * from './CButton'
+export * from './CText'
