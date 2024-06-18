@@ -31,6 +31,7 @@ const CButton = ({
         wrapcontent ? styles.wrapper : styles.default,
         isOutlineButton && styles.outline,
         {borderColor: borderColor},
+        !enable && {backgroundColor: colors.grey},
         style,
       ]}>
       {leftIcon ? renderLeft() : <Spacer w={0} />}

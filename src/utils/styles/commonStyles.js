@@ -58,6 +58,10 @@ export const textAttr = StyleSheet.create({
 })
 
 export const containerAttr = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colors.white
+    },
     w100: {
         width: '100%'
     },

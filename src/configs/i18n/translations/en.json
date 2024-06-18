@@ -21,5 +21,24 @@
         "description": "Create an new account",
         "signup": "Sign Up",
         "account": "have a account?"
+    },
+    "error": {
+        "input": {
+            "name": {
+                "required": "Fullname is required"
+            },
+            "email": {
+                "required": "Email is required",
+                "invalid": "Email invalidate"
+            },
+            "password": {
+                "required": "Password is required",
+                "notMatch": "Password doesn't match",
+                "minLength": "Password must be greater than 8 characters",
+                "advance": "Password must contain capital letters or special characters",
+                "requiredCFPass": "Confirm password is required"
+            }
+        }
+
     }
 }

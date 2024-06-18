@@ -3,6 +3,8 @@ import SplashScreen from 'react-native-splash-screen';
 import TestButton from './src/example/TestButton';
 import RootNavigation from './src/navigator/RootNavigation';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Provider} from 'react-redux';
+import {store} from './src/store/store';
 
 const App = () => {
   useEffect(() => {
@@ -13,9 +15,11 @@ const App = () => {
   }, []);
 
   return (
-    <SafeAreaProvider>
-      <RootNavigation />
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <RootNavigation />
+      </SafeAreaProvider>
+    </Provider>
   );
 };
 

@@ -36,6 +36,7 @@ local.properties
 
 # node.js
 #
+.env
 node_modules/
 src/example/
 npm-debug.log

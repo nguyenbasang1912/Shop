@@ -12,6 +12,8 @@ const Input = ({
   onChange,
   err = '',
   iconSize = 20,
+  isPassword = false,
+  type,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -48,19 +50,25 @@ const Input = ({
         ]}>
         {leftIcon && renderLeft()}
         <TextInput
+          keyboardType={type}
+          secureTextEntry={isPassword}
           placeholder={placeholder}
           onChangeText={onChange}
           value={value}
-          style={[typography.inputText, styles.input]}
+          style={[
+            typography.commonText,
+            value && typography.inputText,
+            styles.input,
+          ]}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
       </View>
       {err && (
-        <>
+        <View style={[containerAttr.w100, styles.fs]}>
           <Spacer h={8} />
           <Text style={styles.textErr}>{err}</Text>
-        </>
+        </View>
       )}
     </>
   );
@@ -69,6 +77,9 @@ const Input = ({
 export default Input;
 
 const styles = StyleSheet.create({
+  fs: {
+    alignItems: 'flex-start',
+  },
   textErr: {
     fontSize: 12,
     fontWeight: '700',
