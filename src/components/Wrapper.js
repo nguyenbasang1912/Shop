@@ -36,5 +36,3 @@ const Wrapper = ({
 };
 
 export default Wrapper;
-
-const styles = StyleSheet.create({});

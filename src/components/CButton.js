@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     padding: 16,
     borderRadius: 5,
-    alignSelf: 'baseline',
+    alignSelf: 'auto'
   },
   default: {
     width: '100%',

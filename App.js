@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
-import TestButton from './src/example/TestButton';
+import { Provider } from 'react-redux';
 import RootNavigation from './src/navigator/RootNavigation';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Provider} from 'react-redux';
-import {store} from './src/store/store';
+import { store } from './src/store/store';
 
 const App = () => {
   useEffect(() => {
