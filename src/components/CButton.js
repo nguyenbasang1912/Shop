@@ -11,8 +11,10 @@ const CButton = ({
   enable = true,
   isOutlineButton = false,
   borderColor,
+  background,
   leftIcon,
   rightIcon,
+  resetpm = false,
 }) => {
   const renderLeft = () => {
     return <View>{leftIcon}</View>;
@@ -30,8 +32,9 @@ const CButton = ({
         styles.main,
         wrapcontent ? styles.wrapper : styles.default,
         isOutlineButton && styles.outline,
-        {borderColor: borderColor},
+        {borderColor: borderColor, backgroundColor: background},
         !enable && {backgroundColor: colors.grey},
+        resetpm && {padding: 0, margin: 0},
         style,
       ]}>
       {leftIcon ? renderLeft() : <Spacer w={0} />}
@@ -57,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     padding: 16,
     borderRadius: 5,
-    alignSelf: 'auto'
+    alignSelf: 'auto',
   },
   default: {
     width: '100%',

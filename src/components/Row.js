@@ -3,9 +3,14 @@ import React from 'react';
 
 const Row = ({justify, children, style}) => {
   return (
-    <View style={[styles.container, {
-        justifyContent: justify || 'flex-start'
-    }, style]}>
+    <View
+      style={[
+        styles.container,
+        {
+          justifyContent: justify || 'flex-start',
+        },
+        style,
+      ]}>
       {children}
     </View>
   );
@@ -14,10 +19,9 @@ const Row = ({justify, children, style}) => {
 export default Row;
 
 const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        height: 'auto',
-        alignItems: 'center',
-        flexDirection: 'row',
-    }
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
 });

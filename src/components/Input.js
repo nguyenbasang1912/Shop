@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 'auto',
-    width: '100%',
+    flex: 1,
     borderRadius: 5,
     borderWidth: 1,
     paddingVertical: 12,

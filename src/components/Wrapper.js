@@ -16,22 +16,22 @@ const Wrapper = ({
 }) => {
   const {top} = useSafeAreaInsets();
   return (
-    <SafeAreaView
+    <View
       style={[
         containerAttr.flex,
-        statusbar && {marginTop: top},
+        statusbar && {paddingTop: top},
         {
           paddingVertical: pv || 0,
           paddingHorizontal: ph || 0,
           marginVertical: mv || 0,
           marginHorizontal: mh || 0,
-          alignItems: align || 'flex-start',
+          alignItems: align || 'stretch',
           backgroundColor: background,
         },
         style,
       ]}>
       {children}
-    </SafeAreaView>
+    </View>
   );
 };
 

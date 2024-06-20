@@ -1,4 +1,5 @@
 export const stackName = {
     login: 'Login',
-    register: 'Register'
+    register: 'Register',
+    home: 'Home'
 }

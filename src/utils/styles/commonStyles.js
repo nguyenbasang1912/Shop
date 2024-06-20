@@ -18,6 +18,7 @@ export const typography = StyleSheet.create({
         fontSize: 14,
         fontWeight: '700',
         lineHeight: 25.2,
+        color: colors.white,
     },
     inputText: {
         fontSize: 12,
