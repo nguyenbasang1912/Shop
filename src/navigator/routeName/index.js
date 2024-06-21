@@ -1,5 +1,11 @@
 export const stackName = {
     login: 'Login',
     register: 'Register',
-    home: 'Home'
+    tab: 'Tab'
+}
+
+export const tabName = {
+    home: 'Home',
+    cart: 'Cart',
+    profile: 'Profile'
 }

@@ -1,17 +1,17 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {Image, ScrollView, StyleSheet} from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Image, ScrollView, StyleSheet } from 'react-native';
+import * as yup from 'yup';
 import CButton from '../../components/CButton';
 import CText from '../../components/CText';
 import Input from '../../components/Input';
 import Row from '../../components/Row';
 import Spacer from '../../components/Spacer';
 import Wrapper from '../../components/Wrapper';
-import {colors, containerAttr} from '../../utils/styles';
-import {stackName} from '../../navigator/routeName';
+import { GoogleLogin } from '../../configs/google/googleSignIn';
 import useForm from '../../hooks/useForm';
-import * as yup from 'yup';
-import {GoogleLogin, GoogleLogout} from '../../configs/google/googleSignIn';
+import { stackName } from '../../navigator/routeName';
+import { colors, containerAttr } from '../../utils/styles';
 
 const Login = ({navigation}) => {
   const {t} = useTranslation();
@@ -124,7 +124,7 @@ const Login = ({navigation}) => {
           color={colors.primary}
           type="button"
           onPress={() => {
-            navigation.navigate(stackName.home);
+            navigation.navigate(stackName.tab);
           }}>
           {t('login.forgotPassword')}
         </CText>

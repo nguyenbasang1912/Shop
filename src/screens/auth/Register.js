@@ -1,15 +1,14 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {Image, ScrollView, StyleSheet} from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Image, ScrollView, StyleSheet } from 'react-native';
+import * as yup from 'yup';
 import CButton from '../../components/CButton';
 import CText from '../../components/CText';
 import Input from '../../components/Input';
-import Row from '../../components/Row';
 import Spacer from '../../components/Spacer';
 import Wrapper from '../../components/Wrapper';
-import {colors, containerAttr} from '../../utils/styles';
-import * as yup from 'yup';
 import useForm from '../../hooks/useForm';
+import { colors, containerAttr } from '../../utils/styles';
 
 const Register = ({navigation}) => {
   const {t} = useTranslation();
@@ -42,7 +41,7 @@ const Register = ({navigation}) => {
 
   return (
     <ScrollView style={containerAttr.container}>
-      <Wrapper ph={16} align={'center'}>
+      <Wrapper ph={16} align={'center'} statusbar>
         <Spacer h={70} />
         <Image
           source={require('../../assets/common/icon.png')}

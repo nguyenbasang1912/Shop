@@ -5,6 +5,7 @@ import {StatusBar} from 'react-native';
 import { stackName } from './routeName';
 import Register from '../screens/auth/Register';
 import Home from '../screens/main/Home';
+import TabNavigation from './TabNavigation';
 
 const Stack = createStackNavigator();
 
@@ -16,7 +17,7 @@ function RootNavigation() {
         <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={stackName.login}>
           <Stack.Screen name={stackName.login} component={Login} />
           <Stack.Screen name={stackName.register} component={Register} />
-          <Stack.Screen name={stackName.home} component={Home} />
+          <Stack.Screen name={stackName.tab} component={TabNavigation} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
