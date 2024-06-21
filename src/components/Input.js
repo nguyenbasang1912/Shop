@@ -14,6 +14,7 @@ const Input = ({
   iconSize = 20,
   isPassword = false,
   type,
+  style
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -47,6 +48,7 @@ const Input = ({
           styles.inputWrapper,
           isFocused && styles.focus,
           err && styles.err,
+          style
         ]}>
         {leftIcon && renderLeft()}
         <TextInput
@@ -90,7 +92,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 'auto',
-    width: '100%',
     borderRadius: 5,
     borderWidth: 1,
     paddingVertical: 12,

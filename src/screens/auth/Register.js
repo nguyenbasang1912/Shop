@@ -54,6 +54,7 @@ const Register = ({navigation}) => {
         <CText>{t('register.description')}</CText>
         <Spacer h={28} />
         <Input
+          style={{marginHorizontal: 16}}
           value={values.name}
           onChange={text => onChangeValue('name', text)}
           err={error('name')}
@@ -62,6 +63,7 @@ const Register = ({navigation}) => {
         />
         <Spacer h={8} />
         <Input
+          style={{marginHorizontal: 16}}
           value={values.email}
           onChange={text => onChangeValue('email', text)}
           err={error('email')}
@@ -69,6 +71,7 @@ const Register = ({navigation}) => {
         />
         <Spacer h={8} />
         <Input
+          style={{marginHorizontal: 16}}
           isPassword
           value={values.pass}
           onChange={text => onChangeValue('pass', text)}
@@ -78,6 +81,7 @@ const Register = ({navigation}) => {
         />
         <Spacer h={8} />
         <Input
+          style={{marginHorizontal: 16}}
           isPassword
           value={values.repass}
           onChange={text => onChangeValue('repass', text)}

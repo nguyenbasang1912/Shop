@@ -37,7 +37,7 @@ const Login = ({navigation}) => {
 
   return (
     <ScrollView style={containerAttr.container}>
-      <Wrapper ph={16} align={'center'}>
+      <Wrapper ph={16} align={'center'} statusbar>
         <Spacer h={70} />
         <Image
           source={require('../../assets/common/icon.png')}
@@ -49,6 +49,7 @@ const Login = ({navigation}) => {
         <CText>{t('login.description')}</CText>
         <Spacer h={28} />
         <Input
+          style={{marginHorizontal: 16}}
           err={error('email')}
           value={values.email}
           onChange={text => onChangeValue('email', text)}
@@ -56,6 +57,7 @@ const Login = ({navigation}) => {
         />
         <Spacer h={8} />
         <Input
+          style={{marginHorizontal: 16}}
           isPassword
           err={error('pass')}
           value={values.pass}
