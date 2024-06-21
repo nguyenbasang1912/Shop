@@ -13,7 +13,7 @@ function RootNavigation() {
     <>
       <StatusBar translucent backgroundColor={'transparent'} barStyle={'dark-content'}/>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={stackName.home}>
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={stackName.login}>
           <Stack.Screen name={stackName.login} component={Login} />
           <Stack.Screen name={stackName.register} component={Register} />
           <Stack.Screen name={stackName.home} component={Home} />

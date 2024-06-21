@@ -37,7 +37,7 @@ const Login = ({navigation}) => {
 
   return (
     <ScrollView style={containerAttr.container}>
-      <Wrapper ph={16} align={'center'}>
+      <Wrapper ph={16} align={'center'} statusbar>
         <Spacer h={70} />
         <Image
           source={require('../../assets/common/icon.png')}
@@ -65,7 +65,8 @@ const Login = ({navigation}) => {
         />
         <Spacer h={16} />
         <CButton
-          style={{shadowColor: colors.shadow, elevation: 30}}
+          background={colors.primary}
+          style={{shadowColor: colors.shadow, elevation: 10}}
           onPress={() => {
             submitForm();
           }}>
@@ -77,7 +78,7 @@ const Login = ({navigation}) => {
         <Row>
           <Spacer f={1} h={0} color={colors.light} />
           <Spacer w={23} />
-          <CText type="button">{t('login.or')}</CText>
+          <CText type="button" color={colors.grey}>{t('login.or')}</CText>
           <Spacer w={23} />
           <Spacer f={1} h={0} color={colors.light} />
         </Row>
@@ -115,7 +116,12 @@ const Login = ({navigation}) => {
 
         <Spacer h={16} />
 
-        <CText color={colors.primary} type="button">
+        <CText
+          color={colors.primary}
+          type="button"
+          onPress={() => {
+            navigation.navigate(stackName.home);
+          }}>
           {t('login.forgotPassword')}
         </CText>
         <CText>
