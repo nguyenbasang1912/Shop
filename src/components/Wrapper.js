@@ -18,7 +18,7 @@ const Wrapper = ({
   return (
     <View
       style={[
-        containerAttr.container,
+        containerAttr.flex,
         statusbar && {paddingTop: top},
         {
           paddingVertical: pv || 0,

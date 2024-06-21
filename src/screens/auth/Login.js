@@ -49,6 +49,7 @@ const Login = ({navigation}) => {
         <CText>{t('login.description')}</CText>
         <Spacer h={28} />
         <Input
+          style={{alignSelf: 'stretch'}}
           err={error('email')}
           value={values.email}
           onChange={text => onChangeValue('email', text)}
@@ -56,6 +57,7 @@ const Login = ({navigation}) => {
         />
         <Spacer h={8} />
         <Input
+          style={{alignSelf: 'stretch'}}
           isPassword
           err={error('pass')}
           value={values.pass}
@@ -78,7 +80,9 @@ const Login = ({navigation}) => {
         <Row>
           <Spacer f={1} h={0} color={colors.light} />
           <Spacer w={23} />
-          <CText type="button" color={colors.grey}>{t('login.or')}</CText>
+          <CText type="button" color={colors.grey}>
+            {t('login.or')}
+          </CText>
           <Spacer w={23} />
           <Spacer f={1} h={0} color={colors.light} />
         </Row>

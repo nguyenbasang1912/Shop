@@ -3,6 +3,7 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
 import {colors, containerAttr, typography} from '../utils/styles';
 import Spacer from './Spacer';
+import Row from './Row';
 
 const Input = ({
   placeholder = 'Input',
@@ -14,6 +15,7 @@ const Input = ({
   iconSize = 20,
   isPassword = false,
   type,
+  style,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -47,22 +49,25 @@ const Input = ({
           styles.inputWrapper,
           isFocused && styles.focus,
           err && styles.err,
+          style,
         ]}>
-        {leftIcon && renderLeft()}
-        <TextInput
-          keyboardType={type}
-          secureTextEntry={isPassword}
-          placeholder={placeholder}
-          onChangeText={onChange}
-          value={value}
-          style={[
-            typography.commonText,
-            value && typography.inputText,
-            styles.input,
-          ]}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
+        <Row>
+          {leftIcon && renderLeft()}
+          <TextInput
+            keyboardType={type}
+            secureTextEntry={isPassword}
+            placeholder={placeholder}
+            onChangeText={onChange}
+            value={value}
+            style={[
+              typography.commonText,
+              value && typography.inputText,
+              styles.input,
+            ]}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />
+        </Row>
       </View>
       {err && (
         <View style={[containerAttr.w100, styles.fs]}>
@@ -87,9 +92,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 'auto',
     flex: 1,
     borderRadius: 5,
     borderWidth: 1,
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
     ...containerAttr.borderColor,
   },
   input: {
-    width: '100%',
+    flex: 1,
     height: 'auto',
     padding: 0,
     margin: 0,
