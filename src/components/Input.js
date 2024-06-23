@@ -59,6 +59,7 @@ const Input = ({
             placeholder={placeholder}
             onChangeText={onChange}
             value={value}
+            placeholderTextColor={colors.grey}
             style={[
               typography.commonText,
               value && typography.inputText,

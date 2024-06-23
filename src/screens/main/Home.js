@@ -18,7 +18,8 @@ import {data} from '../../example/data/slide';
 import {colors, containerAttr} from '../../utils/styles';
 import Title from '../../components/Title';
 import CategoryItem from '../../components/CategoryItem';
-import { sizes } from '../../utils/styles/sizes';
+import {sizes} from '../../utils/styles/sizes';
+import ProductItem from '../../components/ProductItem';
 
 const Home = ({navigation}) => {
   const renderCategories = ({item, index}) => {
@@ -30,8 +31,28 @@ const Home = ({navigation}) => {
     );
   };
 
+  const renderProduct = ({item, index}) => {
+    return (
+      <>
+        <ProductItem
+          title={item.title}
+          price={item.price}
+          source={item.image}
+          onPress={() => console.log(item)}
+          cost={item.cost}
+          saleoff={item.saleoff}
+          rate={item.rate}
+          width={141}
+        />
+        <Spacer w={16} />
+      </>
+    );
+  };
+
   return (
-    <ScrollView style={containerAttr.container}>
+    <ScrollView
+      style={containerAttr.container}
+      showsVerticalScrollIndicator={false}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <Wrapper statusbar background={colors.transparent}>
           <Section p={16} style={styles.section}>
@@ -56,7 +77,7 @@ const Home = ({navigation}) => {
               titleMoreColor={colors.primary}
               onClickMore={() => console.log('more')}
             />
-            <Spacer h={12}/>
+            <Spacer h={12} />
             <FlatList
               data={[
                 {
@@ -74,6 +95,99 @@ const Home = ({navigation}) => {
               ]}
               renderItem={renderCategories}
               horizontal
+            />
+            <Spacer h={24} />
+            <Title title={'Flash Sale'} more={'See More'} />
+            <Spacer h={12} />
+            <FlatList
+              horizontal
+              data={[
+                {
+                  id: '1',
+                  title: 'Nike Air Max 270 React ENG',
+                  price: '$199',
+                  image: require('../../assets/common/img-product.png'),
+                  cost: '$299',
+                  saleoff: '10%',
+                },
+                {
+                  id: '2',
+                  title: 'Nike Air Max 270 React ENG',
+                  price: '$199',
+                  image: require('../../assets/common/img-product.png'),
+                  cost: '$299',
+                  saleoff: '10%',
+                },
+                {
+                  id: '3',
+                  title: 'Nike Air Max 270 React ENG',
+                  price: '$199',
+                  image: require('../../assets/common/img-product.png'),
+                  cost: '$299',
+                  saleoff: '10%',
+                },
+              ]}
+              renderItem={renderProduct}
+              showsHorizontalScrollIndicator={false}
+            />
+
+            <Spacer h={24} />
+            <Title title={'Mega Sale'} more={'See More'} />
+            <Spacer h={12} />
+            <FlatList
+              horizontal
+              data={[
+                {
+                  id: '1',
+                  title: 'Nike Air Max 270 React ENG',
+                  price: '$199',
+                  image: require('../../assets/common/img-product.png'),
+                  cost: '$299',
+                  saleoff: '10%',
+                },
+                {
+                  id: '2',
+                  title: 'Nike Air Max 270 React ENG',
+                  price: '$199',
+                  image: require('../../assets/common/img-product.png'),
+                  cost: '$299',
+                  saleoff: '10%',
+                },
+                {
+                  id: '3',
+                  title: 'Nike Air Max 270 React ENG',
+                  price: '$199',
+                  image: require('../../assets/common/img-product.png'),
+                  cost: '$299',
+                  saleoff: '10%',
+                },
+                {
+                  id: '4',
+                  title: 'Nike Air Max 270 React ENG',
+                  price: '$199',
+                  image: require('../../assets/common/img-product.png'),
+                  cost: '$299',
+                  saleoff: '10%',
+                },
+                {
+                  id: '5',
+                  title: 'Nike Air Max 270 React ENG',
+                  price: '$199',
+                  image: require('../../assets/common/img-product.png'),
+                  cost: '$299',
+                  saleoff: '10%',
+                },
+                {
+                  id: '6',
+                  title: 'Nike Air Max 270 React ENG',
+                  price: '$199',
+                  image: require('../../assets/common/img-product.png'),
+                  cost: '$299',
+                  saleoff: '10%',
+                },
+              ]}
+              renderItem={renderProduct}
+              showsHorizontalScrollIndicator={false}
             />
           </Section>
         </Wrapper>
