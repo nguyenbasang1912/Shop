@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  FlatList,
   Keyboard,
   ScrollView,
   StyleSheet,
@@ -15,15 +16,25 @@ import Spacer from '../../components/Spacer';
 import Wrapper from '../../components/Wrapper';
 import {data} from '../../example/data/slide';
 import {colors, containerAttr} from '../../utils/styles';
+import Title from '../../components/Title';
+import CategoryItem from '../../components/CategoryItem';
+import { sizes } from '../../utils/styles/sizes';
 
-const Home = () => {
+const Home = ({navigation}) => {
+  const renderCategories = ({item, index}) => {
+    return (
+      <>
+        <CategoryItem source={item.image} title={item.title} />
+        <Spacer w={sizes.xx} />
+      </>
+    );
+  };
+
   return (
     <ScrollView style={containerAttr.container}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <Wrapper statusbar background={colors.transparent}>
-          <Section
-            p={16}
-            style={{borderBottomWidth: 1, borderBottomColor: colors.light}}>
+          <Section p={16} style={styles.section}>
             <Row style={{padding: 0}}>
               <Input placeholder="Search input" leftIcon="search" />
               <Spacer w={16} />
@@ -38,6 +49,33 @@ const Home = () => {
           </Section>
           <Spacer h={16} />
           <Carousel data={data} />
+          <Section ph={16}>
+            <Title
+              title="Category"
+              more="More Category"
+              titleMoreColor={colors.primary}
+              onClickMore={() => console.log('more')}
+            />
+            <Spacer h={12}/>
+            <FlatList
+              data={[
+                {
+                  title: 'Category 1',
+                  image: require('../../assets/common/icon.png'),
+                },
+                {
+                  title: 'Category 2',
+                  image: require('../../assets/common/icon.png'),
+                },
+                {
+                  title: 'Category 3',
+                  image: require('../../assets/common/icon.png'),
+                },
+              ]}
+              renderItem={renderCategories}
+              horizontal
+            />
+          </Section>
         </Wrapper>
       </TouchableWithoutFeedback>
     </ScrollView>
@@ -46,4 +84,9 @@ const Home = () => {
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  section: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.light,
+  },
+});

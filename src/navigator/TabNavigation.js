@@ -1,7 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/main/Home';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {Keyboard, Text, View} from 'react-native';
+import {Keyboard, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import CText from '../components/CText';
 import CButton from '../components/CButton';
@@ -64,14 +64,12 @@ const TabBarCustom = ({state, descriptors, navigation}) => {
 
   return (
     <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderTopWidth: 1,
-        borderTopColor: colors.light,
-        backgroundColor: colors.white,
-        display: isKeyboardShow ? 'none' : 'flex',
-      }}>
+      style={[
+        styles.tabBar,
+        {
+          display: isKeyboardShow ? 'none' : 'flex',
+        },
+      ]}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =
@@ -129,3 +127,13 @@ export default function TabNavigation() {
     </Tab.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  tabBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: colors.light,
+    backgroundColor: colors.white,
+  },
+});
