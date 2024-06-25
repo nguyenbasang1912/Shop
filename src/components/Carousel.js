@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Animated,
   FlatList,
@@ -16,6 +16,28 @@ import Spacer from './Spacer';
 
 const Carousel = ({data}) => {
   const scrollX = useRef(new Animated.Value(0)).current;
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const flatlistRef = useRef(null);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (selectedIndex >= data.length - 1) {
+        setSelectedIndex(0);
+        flatlistRef.current.scrollToIndex({
+          index: 0,
+          animated: true,
+        });
+      } else {
+        setSelectedIndex(prev => prev + 1);
+        flatlistRef.current.scrollToIndex({
+          index: selectedIndex + 1,
+          animated: true,
+        });
+      }
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [selectedIndex]);
 
   const renderBanner = ({item}) => {
     return (
@@ -43,6 +65,7 @@ const Carousel = ({data}) => {
   return (
     <View>
       <FlatList
+        ref={flatlistRef}
         data={data}
         renderItem={renderBanner}
         pagingEnabled
@@ -55,6 +78,14 @@ const Carousel = ({data}) => {
           {useNativeDriver: false},
         )}
         scrollEventThrottle={16}
+        onMomentumScrollEnd={event => {
+          const index = Math.floor(
+            Math.floor(event.nativeEvent.contentOffset.x) /
+              Math.floor(event.nativeEvent.layoutMeasurement.width),
+          );
+          setSelectedIndex(index);
+          // work with: index
+        }}
       />
       <Spacer h={16} />
       <Row justify={'center'}>
