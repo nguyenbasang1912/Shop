@@ -29,7 +29,7 @@ const Section = ({
           margin: m,
           marginHorizontal: mh,
           marginVertical: mv,
-          backgroundColor: background
+          backgroundColor: background,
         },
         style,
       ]}>

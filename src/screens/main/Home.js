@@ -20,6 +20,7 @@ import Title from '../../components/Title';
 import CategoryItem from '../../components/CategoryItem';
 import {sizes} from '../../utils/styles/sizes';
 import ProductItem from '../../components/ProductItem';
+import {stackName} from '../../navigator/routeName';
 
 const Home = ({navigation}) => {
   const renderCategories = ({item, index}) => {
@@ -59,7 +60,11 @@ const Home = ({navigation}) => {
             <Row style={{padding: 0}}>
               <Input placeholder="Search input" leftIcon="search" />
               <Spacer w={16} />
-              <CButton wrapcontent resetpm background={colors.transparent}>
+              <CButton
+                wrapcontent
+                resetpm
+                background={colors.transparent}
+                onPress={() => navigation.navigate(stackName.favorite)}>
                 <Icon name="hearto" size={24} color={colors.grey} />
               </CButton>
               <Spacer w={16} />
@@ -97,7 +102,11 @@ const Home = ({navigation}) => {
               horizontal
             />
             <Spacer h={24} />
-            <Title title={'Flash Sale'} more={'See More'} />
+            <Title
+              title={'Flash Sale'}
+              more={'See More'}
+              onClickMore={() => navigation.navigate(stackName.detail)}
+            />
             <Spacer h={12} />
             <FlatList
               horizontal

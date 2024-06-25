@@ -6,6 +6,9 @@ import {colors} from '../utils/styles';
 import CText from './CText';
 import Spacer from './Spacer';
 import Row from './Row';
+import RatingBar from './RatingBar';
+import Icon from 'react-native-vector-icons/AntDesign';
+import CButton from './CButton';
 
 const ProductItem = ({
   title = 'Nike Air Max 270 React ENG',
@@ -16,6 +19,9 @@ const ProductItem = ({
   flex = 0,
   source,
   width,
+  isFavorite = true,
+  onPressDelete,
+  style,
 }) => {
   return (
     <Section
@@ -23,7 +29,7 @@ const ProductItem = ({
       ph={sizes.xvi}
       f={flex}
       w={width}
-      style={[styles.box]}>
+      style={[styles.box, style]}>
       <Image style={styles.image} source={source} />
       <Spacer h={8} />
       <CText type="button" size={sizes.xii} color={colors.dark} numLine={2}>
@@ -32,7 +38,7 @@ const ProductItem = ({
       <Spacer h={8} />
       {rate && (
         <>
-          <CText>{rate}</CText>
+          <RatingBar disable rate={rate} />
           <Spacer h={8} />
         </>
       )}
@@ -48,6 +54,13 @@ const ProductItem = ({
         <CText color={colors.red} size={sizes.x} type="button">
           {saleoff}
         </CText>
+        {isFavorite && (
+          <Row justify={'flex-end'} f={1}>
+            <CButton onPress={onPressDelete} wrapcontent resetpm>
+              <Icon name="delete" size={sizes.xviii} color={colors.grey} />
+            </CButton>
+          </Row>
+        )}
       </Row>
     </Section>
   );
@@ -69,5 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
     borderRadius: 5,
     width: '100%',
+    height: 'auto',
+    aspectRatio: 1
   },
 });
