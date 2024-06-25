@@ -12,4 +12,5 @@ export const tabName = {
   home: 'Home',
   cart: 'Cart',
   profile: 'Profile',
+  explore: 'Explore',
 };

@@ -4,11 +4,17 @@ import Icon from 'react-native-vector-icons/Fontisto';
 import {colors, containerAttr, typography} from '../utils/styles';
 import Spacer from './Spacer';
 import Row from './Row';
+import CButton from './CButton';
+import IconAnt from 'react-native-vector-icons/AntDesign';
 
 const Input = ({
   placeholder = 'Input',
   leftIcon = 'email',
-  leftNodeIcon,
+  leftNode,
+  rightNode,
+  showRightIcon = false,
+  handleRightIcon,
+  rightIcon = 'close',
   value,
   onChange,
   err = '',
@@ -16,13 +22,15 @@ const Input = ({
   isPassword = false,
   type,
   style,
+  onFocusInput,
+  onBlurInput,
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const renderLeft = useCallback(() => {
-    return leftNodeIcon ? (
-      <>{leftNodeIcon}</>
+    return leftNode ? (
+      leftNode
     ) : (
       <>
         <View>
@@ -41,8 +49,29 @@ const Input = ({
         <Spacer w={10} />
       </>
     );
-  }, [leftIcon, isFocused, err]);
+  }, [err, isFocused]);
 
+  const renderRight = useCallback(() => {
+    return rightNode ? (
+      <CButton wrapcontent resetpm onPress={handleRightIcon}>
+        {rightNode}
+      </CButton>
+    ) : (
+      <CButton wrapcontent resetpm onPress={handleRightIcon}>
+        <IconAnt
+          name={rightIcon}
+          size={iconSize}
+          color={
+            (!!err && colors.red) || isFocused
+              ? !!err
+                ? colors.red
+                : colors.primary
+              : colors.grey
+          }
+        />
+      </CButton>
+    );
+  }, [isFocused, err]);
   return (
     <>
       <View
@@ -61,15 +90,18 @@ const Input = ({
             onChangeText={onChange}
             value={value}
             placeholderTextColor={colors.grey}
-            style={[
-              typography.commonText,
-              value && typography.inputText,
-              styles.input,
-            ]}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            style={[value && typography.inputText, styles.input]}
+            onFocus={() => {
+              setIsFocused(true);
+              onFocusInput?.();
+            }}
+            onBlur={() => {
+              setIsFocused(false);
+              onBlurInput?.();
+            }}
             {...props}
           />
+          {showRightIcon && renderRight()}
         </Row>
       </View>
       {err && (

@@ -20,7 +20,7 @@ import Title from '../../components/Title';
 import CategoryItem from '../../components/CategoryItem';
 import {sizes} from '../../utils/styles/sizes';
 import ProductItem from '../../components/ProductItem';
-import {stackName} from '../../navigator/routeName';
+import {stackName, tabName} from '../../navigator/routeName';
 
 const Home = ({navigation}) => {
   const renderCategories = ({item, index}) => {
@@ -30,6 +30,10 @@ const Home = ({navigation}) => {
         <Spacer w={sizes.xx} />
       </>
     );
+  };
+
+  const onPressExplore = () => {
+    navigation.jumpTo(tabName.explore);
   };
 
   const renderProduct = ({item, index}) => {
@@ -58,7 +62,11 @@ const Home = ({navigation}) => {
         <Wrapper statusbar background={colors.transparent}>
           <Section p={16} style={styles.section}>
             <Row style={{padding: 0}}>
-              <Input placeholder="Search input" leftIcon="search" />
+              <Input
+                placeholder="Search input"
+                leftIcon="search"
+                onFocusInput={onPressExplore}
+              />
               <Spacer w={16} />
               <CButton
                 wrapcontent

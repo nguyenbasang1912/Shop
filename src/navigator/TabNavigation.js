@@ -1,24 +1,16 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from '../screens/main/Home';
-import Icon from 'react-native-vector-icons/AntDesign';
-import {Keyboard, StyleSheet, Text, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import CText from '../components/CText';
-import CButton from '../components/CButton';
-import {colors} from '../utils/styles';
 import {useEffect, useState} from 'react';
+import {Keyboard, StyleSheet, Text, View} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import CButton from '../components/CButton';
+import CText from '../components/CText';
+import Home from '../screens/tab/Home';
+import {colors} from '../utils/styles';
+import Explore from '../screens/tab/Explore';
 
 const Tab = createBottomTabNavigator();
 
 const icons = ['home', 'search1', 'shoppingcart', 'gift', 'profile'];
-
-const Explore = ({navigation}) => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Explore</Text>
-    </View>
-  );
-};
 
 const Cart = ({navigation}) => {
   return (
@@ -36,7 +28,8 @@ const Profile = ({navigation}) => {
   );
 };
 
-const Offer = ({navigation}) => {
+const Offer = props => {
+  console.log(props);
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>Offer</Text>
