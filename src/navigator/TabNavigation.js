@@ -7,6 +7,7 @@ import CText from '../components/CText';
 import Home from '../screens/tab/Home';
 import {colors} from '../utils/styles';
 import Explore from '../screens/tab/Explore';
+import Account from '../screens/tab/Account';
 
 const Tab = createBottomTabNavigator();
 
@@ -116,7 +117,7 @@ export default function TabNavigation() {
       <Tab.Screen name="Explore" component={Explore} />
       <Tab.Screen name="Cart" component={Cart} />
       <Tab.Screen name="Offer" component={Offer} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Profile" component={Account} />
     </Tab.Navigator>
   );
 }
