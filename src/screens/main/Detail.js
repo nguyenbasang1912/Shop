@@ -15,6 +15,7 @@ import Title from '../../components/Title';
 import Comment from '../../components/Comment';
 import {data} from '../../example/data/product';
 import ProductItem from '../../components/ProductItem';
+import {stackName} from '../../navigator/routeName';
 
 const Detail = ({navigation}) => {
   const renderProduct = ({item, index}) => {
@@ -174,7 +175,11 @@ const Detail = ({navigation}) => {
               <Spacer h={sizes.xxiv} />
               {/**Comment */}
               <Section>
-                <Title title={'Review Product'} more={'See More'} />
+                <Title
+                  title={'Review Product'}
+                  more={'See More'}
+                  onClickMore={() => navigation.navigate(stackName.review)}
+                />
                 <Row>
                   <RatingBar disable rate={5} />
                   <Spacer w={8} />

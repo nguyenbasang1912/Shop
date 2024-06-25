@@ -35,13 +35,11 @@ const Comment = ({}) => {
       <Row fw={'wrap'}>
         {Array.from({length: 2}).map((_, index) => {
           return (
-            <>
-              <Image
-                key={index.toString()}
-                style={styles.image}
-                source={require('../assets/common/img-product.png')}
-              />
-            </>
+            <Image
+              key={index.toString()}
+              style={styles.image}
+              source={require('../assets/common/img-product.png')}
+            />
           );
         })}
       </Row>

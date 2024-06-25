@@ -8,6 +8,7 @@ import Home from '../screens/main/Home';
 import TabNavigation from './TabNavigation';
 import Detail from '../screens/main/Detail';
 import Favorite from '../screens/main/Favorite';
+import Review from '../screens/main/Review';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ function RootNavigation() {
           <Stack.Screen name={stackName.tab} component={TabNavigation} />
           <Stack.Screen name={stackName.detail} component={Detail} />
           <Stack.Screen name={stackName.favorite} component={Favorite} />
+          <Stack.Screen name={stackName.review} component={Review} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
