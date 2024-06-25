@@ -1,14 +1,13 @@
-import {createStackNavigator} from '@react-navigation/stack';
-import Login from '../screens/auth/Login';
 import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import {StatusBar} from 'react-native';
-import {stackName} from './routeName';
+import Login from '../screens/auth/Login';
 import Register from '../screens/auth/Register';
-import Home from '../screens/main/Home';
-import TabNavigation from './TabNavigation';
 import Detail from '../screens/main/Detail';
 import Favorite from '../screens/main/Favorite';
 import Review from '../screens/main/Review';
+import TabNavigation from './TabNavigation';
+import {stackName} from './routeName';
 
 const Stack = createStackNavigator();
 

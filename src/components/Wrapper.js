@@ -1,6 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {colors, containerAttr} from '../utils/styles';
 
 const Wrapper = ({
