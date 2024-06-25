@@ -16,6 +16,7 @@ const Input = ({
   isPassword = false,
   type,
   style,
+  ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -67,6 +68,7 @@ const Input = ({
             ]}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
+            {...props}
           />
         </Row>
       </View>

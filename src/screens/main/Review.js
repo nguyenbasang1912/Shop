@@ -12,6 +12,7 @@ import Wrapper from '../../components/Wrapper';
 import {comment} from '../../example/data/comment';
 import {colors} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
+import {stackName} from '../../navigator/routeName';
 
 const data = ['All reviews', 1, 2, 3, 4, 5];
 
@@ -35,7 +36,7 @@ const Review = ({navigation}) => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {data.map((item, index) => {
             return (
-              <CButton resetpm wrapcontent>
+              <CButton resetpm wrapcontent key={index}>
                 <Section style={[styles.box, styles.selectedBox]} key={index}>
                   <Row>
                     {index !== 0 && (
@@ -67,7 +68,9 @@ const Review = ({navigation}) => {
       />
 
       <Section p={16}>
-        <CButton background={colors.primary}>
+        <CButton
+          background={colors.primary}
+          onPress={() => navigation.navigate(stackName.writeReview)}>
           <CText type="button">Write Review</CText>
         </CButton>
       </Section>

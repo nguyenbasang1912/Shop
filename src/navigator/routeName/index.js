@@ -5,6 +5,7 @@ export const stackName = {
   detail: 'Detail',
   favorite: 'Favorite',
   review: 'Review',
+  writeReview: 'WriteReview',
 };
 
 export const tabName = {
