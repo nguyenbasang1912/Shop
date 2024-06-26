@@ -2099,6 +2099,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@kolking/react-native-rating@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@kolking/react-native-rating@npm:1.3.1"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 17603cd326902be8b440a2aa5acbfddb333c9d348daba11d24d40294b17e25b9c6cce630be8aaff919fe2e93f96c1685fbfba18e498e21ca70d4fa85aee0eb95
+  languageName: node
+  linkType: hard
+
 "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1":
   version: 5.1.1-v1
   resolution: "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1"
@@ -2606,6 +2616,23 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 50db3831efe3d0d4d995e4ac26a88843489197acff4ab6e1684f9059c80ff16e14475bf79b74926b9884198afffd10748c44d208431c17429b23ef573fb1c8c6
+  languageName: node
+  linkType: hard
+
+"@react-navigation/bottom-tabs@npm:^6.5.20":
+  version: 6.5.20
+  resolution: "@react-navigation/bottom-tabs@npm:6.5.20"
+  dependencies:
+    "@react-navigation/elements": ^1.3.30
+    color: ^4.2.3
+    warn-once: ^0.1.0
+  peerDependencies:
+    "@react-navigation/native": ^6.0.0
+    react: "*"
+    react-native: "*"
+    react-native-safe-area-context: ">= 3.0.0"
+    react-native-screens: ">= 3.0.0"
+  checksum: 3930d6093ce1f66670e619e8d51a54fbafda13bfdadbf6180b74eac126e16261ad77e1b8a9df2f6ca8a552b9f3d1c8df9356a97bc4d4d97dbd154c29e50450e1
   languageName: node
   linkType: hard
 
@@ -4414,12 +4441,14 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
+    "@kolking/react-native-rating": ^1.3.1
     "@react-native-async-storage/async-storage": ^1.23.1
     "@react-native-google-signin/google-signin": ^12.2.1
     "@react-native/babel-preset": 0.74.84
     "@react-native/eslint-config": 0.74.84
     "@react-native/metro-config": 0.74.84
     "@react-native/typescript-config": 0.74.84
+    "@react-navigation/bottom-tabs": ^6.5.20
     "@react-navigation/native": ^6.1.17
     "@react-navigation/stack": ^6.3.29
     "@reduxjs/toolkit": ^2.2.5
@@ -4436,11 +4465,14 @@ __metadata:
     react-i18next: ^14.1.2
     react-native: 0.74.2
     react-native-dotenv: ^3.4.11
+    react-native-element-dropdown: ^2.12.1
     react-native-gesture-handler: ^2.16.2
+    react-native-image-picker: ^7.1.2
     react-native-localize: 1.3.0
     react-native-safe-area-context: ^4.10.4
     react-native-screens: ^3.31.1
     react-native-splash-screen: ^3.3.0
+    react-native-uuid: ^2.0.2
     react-native-vector-icons: ^10.1.0
     react-redux: ^9.1.2
     react-test-renderer: 18.2.0
@@ -8391,6 +8423,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-element-dropdown@npm:^2.12.1":
+  version: 2.12.1
+  resolution: "react-native-element-dropdown@npm:2.12.1"
+  dependencies:
+    lodash: ^4.17.21
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 5eaa4a78a0ba7a3dc25b913035e959c0876dc7f61498bd31eeaca73027453bb51f77e2ec8ab72ef6aa622db04f40fef4b0c2b4e27f367152a3b6dff0e35b6596
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:^2.16.2":
   version: 2.16.2
   resolution: "react-native-gesture-handler@npm:2.16.2"
@@ -8404,6 +8448,16 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 3f3309de471b8de654624c54793f6d72236869156ee61c1adc8bba0f4aca6ffc8ed02035eb85820473091d33eb5ec8b42a0e387a21ec25dc30ee345dff0c1142
+  languageName: node
+  linkType: hard
+
+"react-native-image-picker@npm:^7.1.2":
+  version: 7.1.2
+  resolution: "react-native-image-picker@npm:7.1.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: af52328b7cb06c28549442f0d923cfa92dde8d5a968a642336df4c882f81adbf0e5e606a14de27f96883a76fa1e03230061c4080011c9107942edebc8e09c478
   languageName: node
   linkType: hard
 
@@ -8445,6 +8499,13 @@ __metadata:
   peerDependencies:
     react-native: ">=0.57.0"
   checksum: 14c565d5d4214f55586dcf6f7abd12d99d3e0667f67de3bda7aa24988971567b283a4187fbc0c6269c83b3c21d59d1950335c61bb0780ec2d065e20b3b9199d0
+  languageName: node
+  linkType: hard
+
+"react-native-uuid@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "react-native-uuid@npm:2.0.2"
+  checksum: 149f65549132a240ac237f4db34063fd08473e4b3a9b5958e3d0d6722cf10754efb222b1c6085a3dc42e0718ca9575b38cd5535ae83a96534dde0f54d343e915
   languageName: node
   linkType: hard
 

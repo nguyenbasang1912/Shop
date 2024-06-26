@@ -1,15 +1,10 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Image, ScrollView, StyleSheet} from 'react-native';
-import CButton from '../../components/CButton';
-import CText from '../../components/CText';
-import Input from '../../components/Input';
-import Row from '../../components/Row';
-import Spacer from '../../components/Spacer';
-import Wrapper from '../../components/Wrapper';
-import {colors, containerAttr} from '../../utils/styles';
 import * as yup from 'yup';
-import useForm from '../../hooks/useForm';
+import {CButton, CText, Input, Spacer, Wrapper} from '../../components';
+import {useForm} from '../../hooks';
+import {colors, containerAttr} from '../../utils/styles';
 
 const Register = ({navigation}) => {
   const {t} = useTranslation();
@@ -42,7 +37,7 @@ const Register = ({navigation}) => {
 
   return (
     <ScrollView style={containerAttr.container}>
-      <Wrapper ph={16} align={'center'}>
+      <Wrapper ph={16} align={'center'} statusbar>
         <Spacer h={70} />
         <Image
           source={require('../../assets/common/icon.png')}
@@ -54,7 +49,7 @@ const Register = ({navigation}) => {
         <CText>{t('register.description')}</CText>
         <Spacer h={28} />
         <Input
-          style={{marginHorizontal: 16}}
+          style={{alignSelf: 'stretch'}}
           value={values.name}
           onChange={text => onChangeValue('name', text)}
           err={error('name')}
@@ -63,15 +58,16 @@ const Register = ({navigation}) => {
         />
         <Spacer h={8} />
         <Input
-          style={{marginHorizontal: 16}}
+          style={{alignSelf: 'stretch'}}
           value={values.email}
+          leftIcon={'email'}
           onChange={text => onChangeValue('email', text)}
           err={error('email')}
           placeholder={t('input.email')}
         />
         <Spacer h={8} />
         <Input
-          style={{marginHorizontal: 16}}
+          style={{alignSelf: 'stretch'}}
           isPassword
           value={values.pass}
           onChange={text => onChangeValue('pass', text)}
@@ -81,7 +77,7 @@ const Register = ({navigation}) => {
         />
         <Spacer h={8} />
         <Input
-          style={{marginHorizontal: 16}}
+          style={{alignSelf: 'stretch'}}
           isPassword
           value={values.repass}
           onChange={text => onChangeValue('repass', text)}
@@ -91,6 +87,7 @@ const Register = ({navigation}) => {
         />
         <Spacer h={16} />
         <CButton
+          background={colors.primary}
           style={{shadowColor: colors.shadow, elevation: 10}}
           onPress={() => {
             submitForm();

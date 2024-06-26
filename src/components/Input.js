@@ -2,25 +2,34 @@ import React, {useCallback, useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
 import {colors, containerAttr, typography} from '../utils/styles';
-import Spacer from './Spacer';
+import IconAnt from 'react-native-vector-icons/AntDesign';
+import {Section, Row, Spacer, CButton} from '.';
 
 const Input = ({
   placeholder = 'Input',
-  leftIcon = 'email',
-  leftNodeIcon,
+  leftIcon,
+  leftNode,
+  rightNode,
+  showRightIcon = false,
+  handleRightIcon,
+  rightIcon = 'close',
   value,
   onChange,
   err = '',
   iconSize = 20,
   isPassword = false,
   type,
-  style
+  style,
+  onFocusInput,
+  onBlurInput,
+  flex = 0,
+  ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const renderLeft = useCallback(() => {
-    return leftNodeIcon ? (
-      <>{leftNodeIcon}</>
+    return leftNode ? (
+      leftNode
     ) : (
       <>
         <View>
@@ -39,33 +48,62 @@ const Input = ({
         <Spacer w={10} />
       </>
     );
-  }, [leftIcon, isFocused, err]);
+  }, [err, isFocused]);
 
+  const renderRight = useCallback(() => {
+    return rightNode ? (
+      <CButton wrapcontent resetpm onPress={handleRightIcon}>
+        {rightNode}
+      </CButton>
+    ) : (
+      <CButton wrapcontent resetpm onPress={handleRightIcon}>
+        <IconAnt
+          name={rightIcon}
+          size={iconSize}
+          color={
+            (!!err && colors.red) || isFocused
+              ? !!err
+                ? colors.red
+                : colors.primary
+              : colors.grey
+          }
+        />
+      </CButton>
+    );
+  }, [isFocused, err]);
   return (
     <>
-      <View
+      <Section
+        f={flex}
         style={[
           styles.inputWrapper,
           isFocused && styles.focus,
           err && styles.err,
-          style
+          style,
         ]}>
-        {leftIcon && renderLeft()}
-        <TextInput
-          keyboardType={type}
-          secureTextEntry={isPassword}
-          placeholder={placeholder}
-          onChangeText={onChange}
-          value={value}
-          style={[
-            typography.commonText,
-            value && typography.inputText,
-            styles.input,
-          ]}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
-      </View>
+        <Row>
+          {leftIcon && renderLeft()}
+          <TextInput
+            keyboardType={type}
+            secureTextEntry={isPassword}
+            placeholder={placeholder}
+            onChangeText={onChange}
+            value={value}
+            placeholderTextColor={colors.grey}
+            style={[value && typography.inputText, styles.input]}
+            onFocus={() => {
+              setIsFocused(true);
+              onFocusInput?.();
+            }}
+            onBlur={() => {
+              setIsFocused(false);
+              onBlurInput?.();
+            }}
+            {...props}
+          />
+          {showRightIcon && renderRight()}
+        </Row>
+      </Section>
       {err && (
         <View style={[containerAttr.w100, styles.fs]}>
           <Spacer h={8} />
@@ -89,9 +127,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 'auto',
     borderRadius: 5,
     borderWidth: 1,
     paddingVertical: 12,
@@ -99,7 +134,7 @@ const styles = StyleSheet.create({
     ...containerAttr.borderColor,
   },
   input: {
-    width: '100%',
+    flex: 1,
     height: 'auto',
     padding: 0,
     margin: 0,

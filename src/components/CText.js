@@ -1,8 +1,16 @@
-import React, { useCallback } from 'react';
-import { Text } from 'react-native';
-import { typography } from '../utils/styles';
+import React, {useCallback} from 'react';
+import {Text} from 'react-native';
+import {typography} from '../utils/styles';
 
-const CText = ({children, type = 'common', onPress, color, style, size = 12}) => {
+const CText = ({
+  children,
+  type = 'common',
+  onPress,
+  color,
+  style,
+  size = 12,
+  numLine = undefined,
+}) => {
   const styles = useCallback(
     type => {
       switch (type) {
@@ -30,6 +38,7 @@ const CText = ({children, type = 'common', onPress, color, style, size = 12}) =>
 
   return (
     <Text
+      numberOfLines={numLine}
       style={[
         {padding: 0, margin: 0},
         styles(type),

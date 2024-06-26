@@ -1,6 +1,9 @@
-import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin';
-import {GOOGLE_WEB_CLIENT_ID, GOOGLE_ANDROID_CLIENT_ID} from '@env';
-import { Alert } from 'react-native';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import {GOOGLE_WEB_CLIENT_ID} from '@env';
+import {Alert} from 'react-native';
 
 GoogleSignin.configure({
   webClientId: GOOGLE_WEB_CLIENT_ID,
@@ -13,7 +16,7 @@ const GoogleLogin = async () => {
     console.log('User info', {userInfo});
     return userInfo;
   } catch (error) {
-    console.log(error.code)
+    console.log(error.code);
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       // user cancelled the login flow
       Alert.alert('User cancelled the login flow !');

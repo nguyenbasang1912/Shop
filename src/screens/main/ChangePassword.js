@@ -1,0 +1,65 @@
+import React from 'react';
+import {StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {
+  CButton,
+  CText,
+  Input,
+  Section,
+  Spacer,
+  Title,
+  ToolBar,
+  Wrapper,
+} from '../../components';
+import {colors, containerAttr} from '../../utils/styles';
+import {sizes} from '../../utils/styles/sizes';
+
+const ChangePassword = () => {
+  return (
+    <Wrapper statusbar>
+      <ToolBar
+        leftComponent={
+          <CButton wrapcontent resetpm>
+            <Icon name="left" size={sizes.xviii} color={colors.grey} />
+          </CButton>
+        }
+        centerComponent={
+          <CText type="button" size={sizes.xvi} color={colors.dark}>
+            Change Password
+          </CText>
+        }
+        style={containerAttr.bottomLine}
+      />
+
+      <Section p={sizes.xxvi}>
+        <Section>
+          <Title title={'Old password'} />
+          <Spacer h={sizes.xii} />
+          <Input leftIcon="locked" />
+        </Section>
+        <Spacer h={sizes.xxiv} />
+        <Section>
+          <Title title={'New Password'} />
+          <Spacer h={sizes.xii} />
+          <Input leftIcon="locked" />
+        </Section>
+        <Spacer h={sizes.xxiv} />
+        <Section>
+          <Title title={'New Password Again'} />
+          <Spacer h={sizes.xii} />
+          <Input leftIcon="locked" />
+        </Section>
+      </Section>
+      <Spacer f={1} />
+      <Section p={sizes.xxvi}>
+        <CButton background={colors.primary}>
+          <CText type="button">Save</CText>
+        </CButton>
+      </Section>
+    </Wrapper>
+  );
+};
+
+export default ChangePassword;
+
+const styles = StyleSheet.create({});

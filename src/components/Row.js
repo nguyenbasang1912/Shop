@@ -1,11 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
 
-const Row = ({justify, children, style}) => {
+const Row = ({justify, children, style, f, fw}) => {
   return (
-    <View style={[styles.container, {
-        justifyContent: justify || 'flex-start'
-    }, style]}>
+    <View
+      style={[
+        styles.container,
+        {
+          justifyContent: justify || 'flex-start',
+          flex: f || 0,
+          flexWrap: fw || 'nowrap',
+        },
+        style,
+      ]}>
       {children}
     </View>
   );
@@ -14,10 +21,9 @@ const Row = ({justify, children, style}) => {
 export default Row;
 
 const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        height: 'auto',
-        alignItems: 'center',
-        flexDirection: 'row',
-    }
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
 });

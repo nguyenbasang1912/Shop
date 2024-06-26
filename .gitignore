@@ -38,7 +38,6 @@ local.properties
 #
 .env
 node_modules/
-src/example/
 npm-debug.log
 yarn-error.log
 

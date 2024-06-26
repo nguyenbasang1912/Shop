@@ -1,17 +1,12 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Image, ScrollView, StyleSheet} from 'react-native';
-import CButton from '../../components/CButton';
-import CText from '../../components/CText';
-import Input from '../../components/Input';
-import Row from '../../components/Row';
-import Spacer from '../../components/Spacer';
-import Wrapper from '../../components/Wrapper';
-import {colors, containerAttr} from '../../utils/styles';
-import {stackName} from '../../navigator/routeName';
-import useForm from '../../hooks/useForm';
 import * as yup from 'yup';
-import {GoogleLogin, GoogleLogout} from '../../configs/google/googleSignIn';
+import {CButton, CText, Input, Row, Spacer, Wrapper} from '../../components';
+import {GoogleLogin} from '../../configs/google/googleSignIn';
+import {useForm} from '../../hooks';
+import {stackName} from '../../navigator/routeName';
+import {colors, containerAttr} from '../../utils/styles';
 
 const Login = ({navigation}) => {
   const {t} = useTranslation();
@@ -49,7 +44,8 @@ const Login = ({navigation}) => {
         <CText>{t('login.description')}</CText>
         <Spacer h={28} />
         <Input
-          style={{marginHorizontal: 16}}
+          leftIcon={'email'}
+          style={{alignSelf: 'stretch'}}
           err={error('email')}
           value={values.email}
           onChange={text => onChangeValue('email', text)}
@@ -57,7 +53,7 @@ const Login = ({navigation}) => {
         />
         <Spacer h={8} />
         <Input
-          style={{marginHorizontal: 16}}
+          style={{alignSelf: 'stretch'}}
           isPassword
           err={error('pass')}
           value={values.pass}
@@ -67,7 +63,8 @@ const Login = ({navigation}) => {
         />
         <Spacer h={16} />
         <CButton
-          style={{shadowColor: colors.shadow, elevation: 30}}
+          background={colors.primary}
+          style={{shadowColor: colors.shadow, elevation: 10}}
           onPress={() => {
             submitForm();
           }}>
@@ -79,7 +76,9 @@ const Login = ({navigation}) => {
         <Row>
           <Spacer f={1} h={0} color={colors.light} />
           <Spacer w={23} />
-          <CText type="button">{t('login.or')}</CText>
+          <CText type="button" color={colors.grey}>
+            {t('login.or')}
+          </CText>
           <Spacer w={23} />
           <Spacer f={1} h={0} color={colors.light} />
         </Row>
@@ -117,7 +116,12 @@ const Login = ({navigation}) => {
 
         <Spacer h={16} />
 
-        <CText color={colors.primary} type="button">
+        <CText
+          color={colors.primary}
+          type="button"
+          onPress={() => {
+            navigation.navigate(stackName.tab);
+          }}>
           {t('login.forgotPassword')}
         </CText>
         <CText>
