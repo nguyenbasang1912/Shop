@@ -11,8 +11,9 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Section from '../../components/Section';
 import Spacer from '../../components/Spacer';
 import CButton from '../../components/CButton';
+import {stackName} from '../../navigator/routeName';
 
-const Account = () => {
+const Account = ({navigation}) => {
   return (
     <Wrapper statusbar>
       <ToolBar
@@ -25,8 +26,13 @@ const Account = () => {
       />
       {accounts.map((item, index) => {
         return (
-          <CButton wrapcontent resetpm style={styles.button}>
-            <Section key={item.id} p={sizes.xvi}>
+          <CButton
+            wrapcontent
+            key={item.id}
+            resetpm
+            style={styles.button}
+            onPress={() => navigation.navigate(stackName.gender)}>
+            <Section p={sizes.xvi}>
               <Row>
                 <Icon
                   name={item.icon}

@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import CButton from '../components/CButton';
 import CText from '../components/CText';
 import Home from '../screens/tab/Home';
-import {colors} from '../utils/styles';
+import {colors, containerAttr} from '../utils/styles';
 import Explore from '../screens/tab/Explore';
 import Account from '../screens/tab/Account';
 
@@ -88,14 +88,18 @@ const TabBarCustom = ({state, descriptors, navigation}) => {
         };
 
         return (
-          <CButton key={index.toString()} onPress={onPress} style={{flex: 1}}>
-            <View style={{alignItems: 'center'}}>
+          <CButton
+            key={index.toString()}
+            onPress={onPress}
+            style={containerAttr.flex}>
+            <View style={styles.center}>
               <Icon
                 size={24}
                 name={icons[index]}
                 color={isFocused ? colors.primary : colors.grey}
               />
               <CText
+                numLine={1}
                 type={isFocused ? 'button' : 'common'}
                 color={isFocused ? colors.primary : colors.grey}>
                 {label}
@@ -117,12 +121,15 @@ export default function TabNavigation() {
       <Tab.Screen name="Explore" component={Explore} />
       <Tab.Screen name="Cart" component={Cart} />
       <Tab.Screen name="Offer" component={Offer} />
-      <Tab.Screen name="Profile" component={Account} />
+      <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
+  center: {
+    alignItems: 'center',
+  },
   tabBar: {
     flexDirection: 'row',
     alignItems: 'center',

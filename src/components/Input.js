@@ -9,7 +9,7 @@ import IconAnt from 'react-native-vector-icons/AntDesign';
 
 const Input = ({
   placeholder = 'Input',
-  leftIcon = 'email',
+  leftIcon,
   leftNode,
   rightNode,
   showRightIcon = false,

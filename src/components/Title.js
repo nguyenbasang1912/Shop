@@ -11,16 +11,21 @@ const Title = ({
   more,
   onClickMore,
   titleColor,
-  titleMoreColor,
+  moreColor,
+  sizeTitle,
+  sizeMore,
 }) => {
   return (
     <Row justify={'space-between'}>
-      <CText type="button" color={titleColor || colors.dark}>
+      <CText type="button" color={titleColor || colors.dark} size={sizeTitle}>
         {title}
       </CText>
       {more ? (
         <CButton onPress={onClickMore} wrapcontent resetpm>
-          <CText type="button" color={titleMoreColor || colors.primary}>
+          <CText
+            type="button"
+            color={moreColor || colors.primary}
+            size={sizeMore}>
             {more}
           </CText>
         </CButton>

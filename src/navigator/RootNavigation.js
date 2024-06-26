@@ -9,6 +9,9 @@ import Review from '../screens/main/Review';
 import TabNavigation from './TabNavigation';
 import {stackName} from './routeName';
 import WriteReview from '../screens/main/WriteReview';
+import Profile from '../screens/main/Profile';
+import Name from '../screens/main/Name';
+import Gender from '../screens/main/Gender';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +34,9 @@ function RootNavigation() {
           <Stack.Screen name={stackName.favorite} component={Favorite} />
           <Stack.Screen name={stackName.review} component={Review} />
           <Stack.Screen name={stackName.writeReview} component={WriteReview} />
+          <Stack.Screen name={stackName.profile} component={Profile} />
+          <Stack.Screen name={stackName.name} component={Name} />
+          <Stack.Screen name={stackName.gender} component={Gender} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

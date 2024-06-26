@@ -3,6 +3,7 @@ import {Dimensions} from 'react-native';
 export const sizes = {
   x: 10,
   xii: 12,
+  xiii: 13,
   xiv: 14,
   xvi: 16,
   xviii: 18,

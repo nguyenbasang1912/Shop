@@ -6,6 +6,9 @@ export const stackName = {
   favorite: 'Favorite',
   review: 'Review',
   writeReview: 'WriteReview',
+  profile: 'Profile',
+  name: 'Name',
+  gender: 'Gender',
 };
 
 export const tabName = {
