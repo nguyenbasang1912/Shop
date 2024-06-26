@@ -1,16 +1,17 @@
 import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import CButton from '../../components/CButton';
-import CText from '../../components/CText';
-import ProductItem from '../../components/ProductItem';
-import Section from '../../components/Section';
-import ToolBar from '../../components/ToolBar';
-import Wrapper from '../../components/Wrapper';
+import {
+  CButton,
+  CText,
+  ProductItem,
+  Section,
+  ToolBar,
+  Wrapper,
+} from '../../components';
 import {data} from '../../example/data/product';
 import {colors} from '../../utils/styles';
 import {WINDOW_WIDTH, sizes} from '../../utils/styles/sizes';
-import Spacer from '../../components/Spacer';
 
 const Favorite = ({navigation}) => {
   const renderProduct = ({item, index}) => {

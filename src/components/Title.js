@@ -1,10 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Row from './Row';
-import CText from './CText';
-import Spacer from './Spacer';
+import {CButton, CText, Row, Spacer} from '.';
 import {colors} from '../utils/styles';
-import CButton from './CButton';
 
 const Title = ({
   title,

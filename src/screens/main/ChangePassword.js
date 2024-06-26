@@ -1,16 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Wrapper from '../../components/Wrapper';
-import ToolBar from '../../components/ToolBar';
-import CButton from '../../components/CButton';
-import CText from '../../components/CText';
+import {StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {
+  CButton,
+  CText,
+  Input,
+  Section,
+  Spacer,
+  Title,
+  ToolBar,
+  Wrapper,
+} from '../../components';
 import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
-import Section from '../../components/Section';
-import Title from '../../components/Title';
-import Spacer from '../../components/Spacer';
-import Icon from 'react-native-vector-icons/AntDesign';
-import Input from '../../components/Input';
 
 const ChangePassword = () => {
   return (
@@ -37,13 +39,13 @@ const ChangePassword = () => {
         </Section>
         <Spacer h={sizes.xxiv} />
         <Section>
-          <Title title={'Old password'} />
+          <Title title={'New Password'} />
           <Spacer h={sizes.xii} />
           <Input leftIcon="locked" />
         </Section>
         <Spacer h={sizes.xxiv} />
         <Section>
-          <Title title={'Old password'} />
+          <Title title={'New Password Again'} />
           <Spacer h={sizes.xii} />
           <Input leftIcon="locked" />
         </Section>

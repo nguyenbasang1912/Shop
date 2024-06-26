@@ -1,21 +1,23 @@
 import React from 'react';
 import {FlatList, Image, ScrollView, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import CText from '../../components/CText';
-import Row from '../../components/Row';
-import Section from '../../components/Section';
-import Spacer from '../../components/Spacer';
-import ToolBar from '../../components/ToolBar';
-import Wrapper from '../../components/Wrapper';
+import {
+  CButton,
+  CText,
+  Comment,
+  ProductItem,
+  RatingBar,
+  Row,
+  Section,
+  Spacer,
+  Title,
+  ToolBar,
+  Wrapper,
+} from '../../components';
+import {data} from '../../example/data/product';
+import {stackName} from '../../navigator/routeName';
 import {colors, containerAttr} from '../../utils/styles';
 import {WINDOW_WIDTH, sizes} from '../../utils/styles/sizes';
-import RatingBar from '../../components/RatingBar';
-import CButton from '../../components/CButton';
-import Title from '../../components/Title';
-import Comment from '../../components/Comment';
-import {data} from '../../example/data/product';
-import ProductItem from '../../components/ProductItem';
-import {stackName} from '../../navigator/routeName';
 
 const Detail = ({navigation}) => {
   const renderProduct = ({item, index}) => {

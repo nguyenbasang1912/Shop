@@ -1,11 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
-import Section from './Section';
+import {StyleSheet} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors, typography} from '../utils/styles';
-import CText from './CText';
 import {sizes} from '../utils/styles/sizes';
+import CText from './CText';
+import Section from './Section';
 
 const data = [
   {label: 'Item 1', value: '1'},

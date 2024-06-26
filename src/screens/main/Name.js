@@ -1,17 +1,19 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import CButton from '../../components/CButton';
-import CText from '../../components/CText';
-import Input from '../../components/Input';
-import Section from '../../components/Section';
-import Title from '../../components/Title';
-import ToolBar from '../../components/ToolBar';
-import Wrapper from '../../components/Wrapper';
+import {
+  CButton,
+  CText,
+  Input,
+  Row,
+  Section,
+  Spacer,
+  Title,
+  ToolBar,
+  Wrapper,
+} from '../../components';
 import {colors} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
-import Row from '../../components/Row';
-import Spacer from '../../components/Spacer';
 
 const Name = ({navigation}) => {
   return (

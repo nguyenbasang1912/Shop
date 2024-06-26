@@ -1,19 +1,21 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StatusBar} from 'react-native';
-import Login from '../screens/auth/Login';
-import Register from '../screens/auth/Register';
-import Detail from '../screens/main/Detail';
-import Favorite from '../screens/main/Favorite';
-import Review from '../screens/main/Review';
+import {Login, Register} from '../screens/auth';
+import {
+  ChangeEmail,
+  ChangePassword,
+  Detail,
+  Favorite,
+  Gender,
+  Name,
+  PhoneNumber,
+  Profile,
+  Review,
+  WriteReview,
+} from '../screens/main';
 import TabNavigation from './TabNavigation';
 import {stackName} from './routeName';
-import WriteReview from '../screens/main/WriteReview';
-import Profile from '../screens/main/Profile';
-import Name from '../screens/main/Name';
-import Gender from '../screens/main/Gender';
-import PhoneNumber from '../screens/main/PhoneNumber';
-import ChangePassword from '../screens/main/ChangePassword';
 
 const Stack = createStackNavigator();
 
@@ -44,6 +46,7 @@ function RootNavigation() {
             name={stackName.changePass}
             component={ChangePassword}
           />
+          <Stack.Screen name={stackName.changeEmail} component={ChangeEmail} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

@@ -1,14 +1,10 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, StyleSheet } from 'react-native';
+import {useTranslation} from 'react-i18next';
+import {Image, ScrollView, StyleSheet} from 'react-native';
 import * as yup from 'yup';
-import CButton from '../../components/CButton';
-import CText from '../../components/CText';
-import Input from '../../components/Input';
-import Spacer from '../../components/Spacer';
-import Wrapper from '../../components/Wrapper';
-import useForm from '../../hooks/useForm';
-import { colors, containerAttr } from '../../utils/styles';
+import {CButton, CText, Input, Spacer, Wrapper} from '../../components';
+import {useForm} from '../../hooks';
+import {colors, containerAttr} from '../../utils/styles';
 
 const Register = ({navigation}) => {
   const {t} = useTranslation();
@@ -64,6 +60,7 @@ const Register = ({navigation}) => {
         <Input
           style={{alignSelf: 'stretch'}}
           value={values.email}
+          leftIcon={'email'}
           onChange={text => onChangeValue('email', text)}
           err={error('email')}
           placeholder={t('input.email')}
@@ -90,7 +87,7 @@ const Register = ({navigation}) => {
         />
         <Spacer h={16} />
         <CButton
-        background={colors.primary}
+          background={colors.primary}
           style={{shadowColor: colors.shadow, elevation: 10}}
           onPress={() => {
             submitForm();

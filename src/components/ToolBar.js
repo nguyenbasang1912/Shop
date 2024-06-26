@@ -1,8 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Section from './Section';
-import Row from './Row';
-import Spacer from './Spacer';
+import {StyleSheet} from 'react-native';
+import {Row, Section, Spacer} from '.';
 
 const ToolBar = ({leftComponent, rightComponent, centerComponent, style}) => {
   const renderLeft = () => {

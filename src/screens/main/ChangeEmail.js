@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
 import {
   CButton,
   CText,
@@ -13,8 +12,9 @@ import {
 } from '../../components';
 import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
+import Icon from 'react-native-vector-icons/AntDesign';
 
-const PhoneNumber = () => {
+const ChangeEmail = () => {
   return (
     <Wrapper statusbar>
       <ToolBar
@@ -25,26 +25,31 @@ const PhoneNumber = () => {
         }
         centerComponent={
           <CText type="button" size={sizes.xvi} color={colors.dark}>
-            Phone Number
+            Email
           </CText>
         }
         style={containerAttr.bottomLine}
       />
+
       <Section p={sizes.xvi}>
-        <Title title={'Phone Number'} />
+        <Title title={'Change Email'} />
         <Spacer h={sizes.xii} />
-        <Input type={'number-pad'} leftIcon={'mobile-alt'} />
+        <Input leftIcon={'email'} />
+        <Spacer h={sizes.viii} />
+        <CText color={colors.primary}>
+          We Will Send verification to your New Email
+        </CText>
       </Section>
       <Spacer f={1} />
-      <Section p={sizes.xxvi}>
+      <Section p={sizes.xvi}>
         <CButton background={colors.primary}>
-          <CText type="button">Next</CText>
+          <CText type="button">Change Email</CText>
         </CButton>
       </Section>
     </Wrapper>
   );
 };
 
-export default PhoneNumber;
+export default ChangeEmail;
 
 const styles = StyleSheet.create({});

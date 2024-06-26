@@ -2,11 +2,8 @@ import React, {useCallback, useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
 import {colors, containerAttr, typography} from '../utils/styles';
-import Spacer from './Spacer';
-import Row from './Row';
-import CButton from './CButton';
 import IconAnt from 'react-native-vector-icons/AntDesign';
-import Section from './Section';
+import {Section, Row, Spacer, CButton} from '.';
 
 const Input = ({
   placeholder = 'Input',
@@ -25,6 +22,7 @@ const Input = ({
   style,
   onFocusInput,
   onBlurInput,
+  flex = 0,
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -76,6 +74,7 @@ const Input = ({
   return (
     <>
       <Section
+        f={flex}
         style={[
           styles.inputWrapper,
           isFocused && styles.focus,

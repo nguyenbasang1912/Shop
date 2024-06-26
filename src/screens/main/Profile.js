@@ -1,16 +1,18 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React, {useCallback} from 'react';
-import Wrapper from '../../components/Wrapper';
-import ToolBar from '../../components/ToolBar';
-import CButton from '../../components/CButton';
-import CText from '../../components/CText';
+import React from 'react';
+import {Image, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {sizes} from '../../utils/styles/sizes';
-import {colors} from '../../utils/styles';
-import Section from '../../components/Section';
-import Row from '../../components/Row';
-import Spacer from '../../components/Spacer';
+import {
+  CButton,
+  CText,
+  Row,
+  Section,
+  Spacer,
+  ToolBar,
+  Wrapper,
+} from '../../components';
 import {profiles} from '../../configs/data/profile';
+import {colors} from '../../utils/styles';
+import {sizes} from '../../utils/styles/sizes';
 
 const Profile = ({navigation}) => {
   const renderProfile = ({id, icon, name, content}, handleBack) => {

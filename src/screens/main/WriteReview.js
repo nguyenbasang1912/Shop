@@ -1,26 +1,20 @@
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
 import React, {useState} from 'react';
-import Wrapper from '../../components/Wrapper';
-import ToolBar from '../../components/ToolBar';
-import CText from '../../components/CText';
-import Icon from 'react-native-vector-icons/AntDesign';
-import {sizes} from '../../utils/styles/sizes';
-import CButton from '../../components/CButton';
-import {colors, containerAttr} from '../../utils/styles';
-import Section from '../../components/Section';
-import Row from '../../components/Row';
-import RatingBar from '../../components/RatingBar';
-import Spacer from '../../components/Spacer';
-import Title from '../../components/Title';
-import Input from '../../components/Input';
+import {Image, ScrollView, StyleSheet, TextInput} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {
+  CButton,
+  CText,
+  RatingBar,
+  Row,
+  Section,
+  Spacer,
+  Title,
+  ToolBar,
+  Wrapper,
+} from '../../components';
+import {colors, containerAttr} from '../../utils/styles';
+import {sizes} from '../../utils/styles/sizes';
 
 const WriteReview = ({navigation}) => {
   const [currentRate, setCurrentRate] = useState(0);

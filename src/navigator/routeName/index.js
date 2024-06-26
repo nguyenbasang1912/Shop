@@ -11,6 +11,7 @@ export const stackName = {
   gender: 'Gender',
   phone: 'Phone',
   changePass: 'ChangePass',
+  changeEmail: 'ChangeEmail',
 };
 
 export const tabName = {

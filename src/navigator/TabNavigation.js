@@ -2,12 +2,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useEffect, useState} from 'react';
 import {Keyboard, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import CButton from '../components/CButton';
-import CText from '../components/CText';
-import Home from '../screens/tab/Home';
+import {CButton, CText} from '../components';
+import {Account, Explore, Home} from '../screens/tab';
 import {colors, containerAttr} from '../utils/styles';
-import Explore from '../screens/tab/Explore';
-import Account from '../screens/tab/Account';
 
 const Tab = createBottomTabNavigator();
 

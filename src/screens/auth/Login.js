@@ -1,17 +1,12 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Image, ScrollView, StyleSheet } from 'react-native';
+import {useTranslation} from 'react-i18next';
+import {Image, ScrollView, StyleSheet} from 'react-native';
 import * as yup from 'yup';
-import CButton from '../../components/CButton';
-import CText from '../../components/CText';
-import Input from '../../components/Input';
-import Row from '../../components/Row';
-import Spacer from '../../components/Spacer';
-import Wrapper from '../../components/Wrapper';
-import { GoogleLogin } from '../../configs/google/googleSignIn';
-import useForm from '../../hooks/useForm';
-import { stackName } from '../../navigator/routeName';
-import { colors, containerAttr } from '../../utils/styles';
+import {CButton, CText, Input, Row, Spacer, Wrapper} from '../../components';
+import {GoogleLogin} from '../../configs/google/googleSignIn';
+import {useForm} from '../../hooks';
+import {stackName} from '../../navigator/routeName';
+import {colors, containerAttr} from '../../utils/styles';
 
 const Login = ({navigation}) => {
   const {t} = useTranslation();
@@ -49,6 +44,7 @@ const Login = ({navigation}) => {
         <CText>{t('login.description')}</CText>
         <Spacer h={28} />
         <Input
+          leftIcon={'email'}
           style={{alignSelf: 'stretch'}}
           err={error('email')}
           value={values.email}

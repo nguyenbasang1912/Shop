@@ -1,14 +1,9 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Section from './Section';
-import {sizes} from '../utils/styles/sizes';
-import {colors} from '../utils/styles';
-import CText from './CText';
-import Spacer from './Spacer';
-import Row from './Row';
-import RatingBar from './RatingBar';
+import {Image, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import CButton from './CButton';
+import {CButton, CText, RatingBar, Row, Section, Spacer} from '.';
+import {colors} from '../utils/styles';
+import {sizes} from '../utils/styles/sizes';
 
 const ProductItem = ({
   title = 'Nike Air Max 270 React ENG',
@@ -83,6 +78,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: '100%',
     height: 'auto',
-    aspectRatio: 1
+    aspectRatio: 1,
   },
 });

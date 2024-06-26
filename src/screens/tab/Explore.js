@@ -1,25 +1,24 @@
+import React, {useState} from 'react';
 import {
   Keyboard,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
-  View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {colors, containerAttr} from '../../utils/styles';
-import Wrapper from '../../components/Wrapper';
-import Section from '../../components/Section';
-import Row from '../../components/Row';
-import Input from '../../components/Input';
-import Spacer from '../../components/Spacer';
-import CButton from '../../components/CButton';
-import {stackName} from '../../navigator/routeName';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconOcticons from 'react-native-vector-icons/Octicons';
-import Title from '../../components/Title';
-import CategoryItem from '../../components/CategoryItem';
+import {
+  CButton,
+  CategoryItem,
+  Input,
+  Row,
+  Section,
+  Spacer,
+  Title,
+  Wrapper,
+} from '../../components';
+import {colors, containerAttr} from '../../utils/styles';
 import {WINDOW_WIDTH, sizes} from '../../utils/styles/sizes';
 
 const Explore = ({navigation}) => {
@@ -36,6 +35,7 @@ const Explore = ({navigation}) => {
           <Section p={16} style={styles.section}>
             <Row>
               <Input
+                flex={1}
                 value={input}
                 onChange={text => setInput(text)}
                 placeholder="Search input"

@@ -9,10 +9,7 @@ import {
 } from 'react-native';
 import {colors} from '../utils/styles';
 import {WINDOW_WIDTH, sizes} from '../utils/styles/sizes';
-import CText from './CText';
-import CountDown from './CountDown';
-import Row from './Row';
-import Spacer from './Spacer';
+import {CText, CountDown, Row, Spacer} from '.';
 
 const Carousel = ({data}) => {
   const scrollX = useRef(new Animated.Value(0)).current;

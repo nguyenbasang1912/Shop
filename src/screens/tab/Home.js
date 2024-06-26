@@ -7,20 +7,22 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import CButton from '../../components/CButton';
-import Carousel from '../../components/Carousel';
-import Input from '../../components/Input';
-import Row from '../../components/Row';
-import Section from '../../components/Section';
-import Spacer from '../../components/Spacer';
-import Wrapper from '../../components/Wrapper';
+import {
+  CButton,
+  Carousel,
+  CategoryItem,
+  Input,
+  ProductItem,
+  Row,
+  Section,
+  Spacer,
+  Title,
+  Wrapper,
+} from '../../components';
 import {data} from '../../example/data/slide';
-import {colors, containerAttr} from '../../utils/styles';
-import Title from '../../components/Title';
-import CategoryItem from '../../components/CategoryItem';
-import {sizes} from '../../utils/styles/sizes';
-import ProductItem from '../../components/ProductItem';
 import {stackName, tabName} from '../../navigator/routeName';
+import {colors, containerAttr} from '../../utils/styles';
+import {sizes} from '../../utils/styles/sizes';
 
 const Home = ({navigation}) => {
   const renderCategories = ({item, index}) => {
@@ -63,6 +65,7 @@ const Home = ({navigation}) => {
           <Section p={16} style={styles.section} f={1}>
             <Row>
               <Input
+                flex={1}
                 placeholder="Search input"
                 leftIcon="search"
                 onFocusInput={onPressExplore}

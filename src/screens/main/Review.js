@@ -1,18 +1,20 @@
 import React from 'react';
 import {FlatList, Image, ScrollView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import CButton from '../../components/CButton';
-import CText from '../../components/CText';
-import Comment from '../../components/Comment';
-import Row from '../../components/Row';
-import Section from '../../components/Section';
-import Spacer from '../../components/Spacer';
-import ToolBar from '../../components/ToolBar';
-import Wrapper from '../../components/Wrapper';
+import {
+  CButton,
+  CText,
+  Comment,
+  Row,
+  Section,
+  Spacer,
+  ToolBar,
+  Wrapper,
+} from '../../components';
 import {comment} from '../../example/data/comment';
+import {stackName} from '../../navigator/routeName';
 import {colors} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
-import {stackName} from '../../navigator/routeName';
 
 const data = ['All reviews', 1, 2, 3, 4, 5];
 

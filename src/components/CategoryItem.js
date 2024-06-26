@@ -7,10 +7,9 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback} from 'react';
-import CText from './CText';
 import {sizes} from '../utils/styles/sizes';
 import {colors} from '../utils/styles';
-import Spacer from './Spacer';
+import {Spacer, CText} from '.';
 
 const CategoryItem = ({source, title, onClick, size, ...props}) => {
   const circleStyle = useCallback(() => {

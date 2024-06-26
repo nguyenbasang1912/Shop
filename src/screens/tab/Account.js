@@ -1,17 +1,19 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Wrapper from '../../components/Wrapper';
-import ToolBar from '../../components/ToolBar';
-import CText from '../../components/CText';
-import {sizes} from '../../utils/styles/sizes';
-import {colors} from '../../utils/styles';
-import {accounts} from '../../configs/data/profile';
-import Row from '../../components/Row';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import Section from '../../components/Section';
-import Spacer from '../../components/Spacer';
-import CButton from '../../components/CButton';
+import {
+  CButton,
+  CText,
+  Row,
+  Section,
+  Spacer,
+  ToolBar,
+  Wrapper,
+} from '../../components';
+import {accounts} from '../../configs/data/profile';
 import {stackName} from '../../navigator/routeName';
+import {colors} from '../../utils/styles';
+import {sizes} from '../../utils/styles/sizes';
 
 const Account = ({navigation}) => {
   return (
@@ -31,7 +33,7 @@ const Account = ({navigation}) => {
             key={item.id}
             resetpm
             style={styles.button}
-            onPress={() => navigation.navigate(stackName.changePass)}>
+            onPress={() => navigation.navigate(stackName.changeEmail)}>
             <Section p={sizes.xvi}>
               <Row>
                 <Icon
