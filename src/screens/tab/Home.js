@@ -59,9 +59,9 @@ const Home = ({navigation}) => {
       style={containerAttr.container}
       showsVerticalScrollIndicator={false}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <Wrapper statusbar background={colors.transparent}>
-          <Section p={16} style={styles.section}>
-            <Row style={{padding: 0}}>
+        <Wrapper statusbar>
+          <Section p={16} style={styles.section} f={1}>
+            <Row>
               <Input
                 placeholder="Search input"
                 leftIcon="search"

@@ -12,6 +12,8 @@ import WriteReview from '../screens/main/WriteReview';
 import Profile from '../screens/main/Profile';
 import Name from '../screens/main/Name';
 import Gender from '../screens/main/Gender';
+import PhoneNumber from '../screens/main/PhoneNumber';
+import ChangePassword from '../screens/main/ChangePassword';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +39,11 @@ function RootNavigation() {
           <Stack.Screen name={stackName.profile} component={Profile} />
           <Stack.Screen name={stackName.name} component={Name} />
           <Stack.Screen name={stackName.gender} component={Gender} />
+          <Stack.Screen name={stackName.phone} component={PhoneNumber} />
+          <Stack.Screen
+            name={stackName.changePass}
+            component={ChangePassword}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

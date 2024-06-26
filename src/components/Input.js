@@ -6,6 +6,7 @@ import Spacer from './Spacer';
 import Row from './Row';
 import CButton from './CButton';
 import IconAnt from 'react-native-vector-icons/AntDesign';
+import Section from './Section';
 
 const Input = ({
   placeholder = 'Input',
@@ -74,7 +75,7 @@ const Input = ({
   }, [isFocused, err]);
   return (
     <>
-      <View
+      <Section
         style={[
           styles.inputWrapper,
           isFocused && styles.focus,
@@ -103,7 +104,7 @@ const Input = ({
           />
           {showRightIcon && renderRight()}
         </Row>
-      </View>
+      </Section>
       {err && (
         <View style={[containerAttr.w100, styles.fs]}>
           <Spacer h={8} />
@@ -127,7 +128,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   inputWrapper: {
-    flex: 1,
     borderRadius: 5,
     borderWidth: 1,
     paddingVertical: 12,

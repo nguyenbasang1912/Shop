@@ -31,7 +31,7 @@ const Account = ({navigation}) => {
             key={item.id}
             resetpm
             style={styles.button}
-            onPress={() => navigation.navigate(stackName.gender)}>
+            onPress={() => navigation.navigate(stackName.changePass)}>
             <Section p={sizes.xvi}>
               <Row>
                 <Icon
