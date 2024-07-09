@@ -48,7 +48,7 @@ const Input = ({
         <Spacer w={10} />
       </>
     );
-  }, [err, isFocused]);
+  }, [err, isFocused, leftNode]);
 
   const renderRight = useCallback(() => {
     return rightNode ? (
@@ -70,7 +70,7 @@ const Input = ({
         />
       </CButton>
     );
-  }, [isFocused, err]);
+  }, [isFocused, err, rightNode]);
   return (
     <>
       <Section
@@ -82,7 +82,7 @@ const Input = ({
           style,
         ]}>
         <Row>
-          {leftIcon && renderLeft()}
+          {renderLeft()}
           <TextInput
             keyboardType={type}
             secureTextEntry={isPassword}

@@ -1,32 +1,38 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {Image, ScrollView, StyleSheet} from 'react-native';
+import {ActivityIndicator, Image, ScrollView, StyleSheet} from 'react-native';
 import * as yup from 'yup';
 import {CButton, CText, Input, Row, Spacer, Wrapper} from '../../components';
 import {GoogleLogin} from '../../configs/google/googleSignIn';
 import {useForm} from '../../hooks';
 import {stackName} from '../../navigator/routeName';
 import {colors, containerAttr} from '../../utils/styles';
+import {useDispatch, useSelector} from 'react-redux';
+import {login} from '../../store/thunk/auth';
+import { sizes } from '../../utils/styles/sizes';
 
 const Login = ({navigation}) => {
+  const {loading, error: errorResponse} = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
   const {t} = useTranslation();
   const {error, submitForm, values, onChangeValue} = useForm({
     initialValues: {
       email: '',
-      pass: '',
+      password: '',
     },
     validation: yup.object({
       email: yup
         .string()
         .email(t('error.input.email.invalid'))
         .required(t('error.input.email.required')),
-      pass: yup
+      password: yup
         .string()
         .min(8, t('error.input.password.minLength'))
         .required(t('error.input.password.required')),
     }),
     onSubmit: values => {
-      console.log(values);
+      dispatch(login(values));
     },
   });
 
@@ -55,9 +61,9 @@ const Login = ({navigation}) => {
         <Input
           style={{alignSelf: 'stretch'}}
           isPassword
-          err={error('pass')}
-          value={values.pass}
-          onChange={text => onChangeValue('pass', text)}
+          err={error('password')}
+          value={values.password}
+          onChange={text => onChangeValue('password', text)}
           placeholder={t('input.password')}
           leftIcon="locked"
         />
@@ -68,9 +74,11 @@ const Login = ({navigation}) => {
           onPress={() => {
             submitForm();
           }}>
-          <CText type="button" color={colors.white}>
+          {!loading ? <CText type="button" color={colors.white}>
             {t('login.signin')}
-          </CText>
+          </CText> : 
+            <ActivityIndicator size={sizes.xviii}/>
+          }
         </CButton>
         <Spacer h={21} />
         <Row>

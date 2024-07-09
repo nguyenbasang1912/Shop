@@ -3,28 +3,12 @@ import {useEffect, useState} from 'react';
 import {Keyboard, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {CButton, CText} from '../components';
-import {Account, Explore, Home} from '../screens/tab';
+import {Account, Cart, Explore, Home} from '../screens/tab';
 import {colors, containerAttr} from '../utils/styles';
 
 const Tab = createBottomTabNavigator();
 
 const icons = ['home', 'search1', 'shoppingcart', 'gift', 'profile'];
-
-const Cart = ({navigation}) => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Cart</Text>
-    </View>
-  );
-};
-
-const Profile = ({navigation}) => {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Profile</Text>
-    </View>
-  );
-};
 
 const Offer = props => {
   console.log(props);

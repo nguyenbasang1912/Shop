@@ -10,6 +10,8 @@ const CText = ({
   style,
   size = 12,
   numLine = undefined,
+  w,
+  textAlign,
 }) => {
   const styles = useCallback(
     type => {
@@ -40,7 +42,12 @@ const CText = ({
     <Text
       numberOfLines={numLine}
       style={[
-        {padding: 0, margin: 0},
+        {
+          padding: 0,
+          margin: 0,
+          width: w || 'auto',
+          textAlign: textAlign || 'auto',
+        },
         styles(type),
         color && {color: color},
         size && {fontSize: size},

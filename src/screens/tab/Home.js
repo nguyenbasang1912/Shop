@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Keyboard,
   ScrollView,
-  StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -23,8 +22,25 @@ import {data} from '../../example/data/slide';
 import {stackName, tabName} from '../../navigator/routeName';
 import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
+import axiosInstance from '../../configs/axiosInstance';
 
 const Home = ({navigation}) => {
+  const [categories, setCategories] = useState([]);
+  const [] = useState([]);
+  const [] = useState([]);
+
+  useEffect(() => {}, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axiosInstance.get('/api/category');
+      return response.data;
+    } catch (error) {
+      console.log('err fetch categories: ', error);
+      return [];
+    }
+  };
+
   const renderCategories = ({item, index}) => {
     return (
       <>
@@ -62,7 +78,7 @@ const Home = ({navigation}) => {
       showsVerticalScrollIndicator={false}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <Wrapper statusbar>
-          <Section p={16} style={styles.section} f={1}>
+          <Section p={16} style={containerAttr.bottomLine}>
             <Row>
               <Input
                 flex={1}
@@ -212,15 +228,9 @@ const Home = ({navigation}) => {
           </Section>
         </Wrapper>
       </TouchableWithoutFeedback>
+      <Spacer h={sizes.xvi} />
     </ScrollView>
   );
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  section: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.light,
-  },
-});

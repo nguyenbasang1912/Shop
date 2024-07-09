@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {CButton, CText, RatingBar, Row, Section, Spacer} from '.';
 import {colors} from '../utils/styles';
@@ -17,47 +17,50 @@ const ProductItem = ({
   isFavorite = true,
   onPressDelete,
   style,
+  onPress
 }) => {
   return (
-    <Section
-      pv={sizes.xvi}
-      ph={sizes.xvi}
-      f={flex}
-      w={width}
-      style={[styles.box, style]}>
-      <Image style={styles.image} source={source} />
-      <Spacer h={8} />
-      <CText type="button" size={sizes.xii} color={colors.dark} numLine={2}>
-        {title.toUpperCase()}
-      </CText>
-      <Spacer h={8} />
-      {rate && (
-        <>
-          <RatingBar disable rate={rate} />
-          <Spacer h={8} />
-        </>
-      )}
-      <CText type="button" color={colors.primary}>
-        {price}
-      </CText>
-      <Spacer h={8} />
-      <Row>
-        <CText color={colors.grey} size={sizes.x} style={styles.cost}>
-          {cost}
+    <TouchableOpacity onPress={onPress}>
+      <Section
+        pv={sizes.xvi}
+        ph={sizes.xvi}
+        f={flex}
+        w={width}
+        style={[styles.box, style]}>
+        <Image style={styles.image} source={source} />
+        <Spacer h={8} />
+        <CText type="button" size={sizes.xii} color={colors.dark} numLine={2}>
+          {title.toUpperCase()}
         </CText>
-        <Spacer w={8} />
-        <CText color={colors.red} size={sizes.x} type="button">
-          {saleoff}
-        </CText>
-        {isFavorite && (
-          <Row justify={'flex-end'} f={1}>
-            <CButton onPress={onPressDelete} wrapcontent resetpm>
-              <Icon name="delete" size={sizes.xviii} color={colors.grey} />
-            </CButton>
-          </Row>
+        <Spacer h={8} />
+        {rate && (
+          <>
+            <RatingBar disable rate={rate} />
+            <Spacer h={8} />
+          </>
         )}
-      </Row>
-    </Section>
+        <CText type="button" color={colors.primary}>
+          {price}
+        </CText>
+        <Spacer h={8} />
+        <Row>
+          <CText color={colors.grey} size={sizes.x} style={styles.cost}>
+            {cost}
+          </CText>
+          <Spacer w={8} />
+          <CText color={colors.red} size={sizes.x} type="button">
+            {saleoff}
+          </CText>
+          {isFavorite && (
+            <Row justify={'flex-end'} f={1}>
+              <CButton onPress={onPressDelete} wrapcontent resetpm>
+                <Icon name="delete" size={sizes.xviii} color={colors.grey} />
+              </CButton>
+            </Row>
+          )}
+        </Row>
+      </Section>
+    </TouchableOpacity>
   );
 };
 
