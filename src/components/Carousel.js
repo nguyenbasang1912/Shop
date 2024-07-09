@@ -11,7 +11,7 @@ import {colors} from '../utils/styles';
 import {WINDOW_WIDTH, sizes} from '../utils/styles/sizes';
 import {CText, CountDown, Row, Spacer} from '.';
 
-const Carousel = ({data}) => {
+const Carousel = ({data, renderItem}) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const flatlistRef = useRef(null);
@@ -64,7 +64,7 @@ const Carousel = ({data}) => {
       <FlatList
         ref={flatlistRef}
         data={data}
-        renderItem={renderBanner}
+        renderItem={renderItem || renderBanner}
         pagingEnabled
         bounces={false}
         horizontal

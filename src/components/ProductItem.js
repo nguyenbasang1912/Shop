@@ -6,7 +6,7 @@ import {colors} from '../utils/styles';
 import {sizes} from '../utils/styles/sizes';
 
 const ProductItem = ({
-  title = 'Nike Air Max 270 React ENG',
+  title,
   rate,
   price,
   saleoff,
@@ -14,10 +14,10 @@ const ProductItem = ({
   flex = 0,
   source,
   width,
-  isFavorite = true,
+  isFavorite = false,
   onPressDelete,
   style,
-  onPress
+  onPress,
 }) => {
   return (
     <TouchableOpacity onPress={onPress}>
@@ -29,13 +29,13 @@ const ProductItem = ({
         style={[styles.box, style]}>
         <Image style={styles.image} source={source} />
         <Spacer h={8} />
-        <CText type="button" size={sizes.xii} color={colors.dark} numLine={2}>
+        <CText type="button" size={sizes.xii} color={colors.dark} numLine={1}>
           {title.toUpperCase()}
         </CText>
         <Spacer h={8} />
         {rate && (
           <>
-            <RatingBar disable rate={rate} />
+            <RatingBar disable rate={rate} size={sizes.x} />
             <Spacer h={8} />
           </>
         )}
@@ -45,11 +45,11 @@ const ProductItem = ({
         <Spacer h={8} />
         <Row>
           <CText color={colors.grey} size={sizes.x} style={styles.cost}>
-            {cost}
+            {cost || ' '}
           </CText>
           <Spacer w={8} />
           <CText color={colors.red} size={sizes.x} type="button">
-            {saleoff}
+            {saleoff || ' '}
           </CText>
           {isFavorite && (
             <Row justify={'flex-end'} f={1}>

@@ -97,4 +97,7 @@ export const containerAttr = StyleSheet.create({
     borderColor: colors.light,
     borderWidth: 1,
   },
+  gap12: {
+    gap: 12,
+  }
 });
