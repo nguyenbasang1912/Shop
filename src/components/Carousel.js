@@ -17,6 +17,8 @@ const Carousel = ({data, renderItem}) => {
   const flatlistRef = useRef(null);
 
   useEffect(() => {
+    if (data.length === 0) return;
+
     const timeout = setTimeout(() => {
       if (selectedIndex >= data.length - 1) {
         setSelectedIndex(0);
@@ -69,7 +71,7 @@ const Carousel = ({data, renderItem}) => {
         bounces={false}
         horizontal
         showsHorizontalScrollIndicator={false}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => index.toString()}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},

@@ -12,7 +12,12 @@ const initialState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    updateTokens: (state, action) => {
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
+    }
+  },
   extraReducers: builder => {
     builder
       .addCase(login.pending, (state, action) => {
@@ -34,3 +39,4 @@ export const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
+export const {updateTokens} = authSlice.actions

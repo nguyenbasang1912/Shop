@@ -1,9 +1,17 @@
-import React from 'react';
-import {FlatList, Image, ScrollView, StyleSheet, View} from 'react-native';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {
   CButton,
   CText,
+  Carousel,
   Comment,
   ProductItem,
   RatingBar,
@@ -14,26 +22,70 @@ import {
   ToolBar,
   Wrapper,
 } from '../../components';
-import {data} from '../../example/data/product';
+import {fetchDetailProduct, fetchProducts} from '../../configs/api';
 import {stackName} from '../../navigator/routeName';
 import {colors, containerAttr} from '../../utils/styles';
 import {WINDOW_WIDTH, sizes} from '../../utils/styles/sizes';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  addProductIntoFavorites,
+  addProductToCart,
+} from '../../store/thunk/cart';
 
-const Detail = ({navigation}) => {
+const Detail = ({navigation, route}) => {
+  const dispatch = useDispatch();
+  const {favorites} = useSelector(state => {
+    return state.cart;
+  });
+
+  const [product, setProduct] = useState({});
+  const [products, setProducts] = useState([]);
+  const [productId, setProductId] = useState(route.params.productId);
+  const [color, setColor] = useState('');
+  const [size, setSize] = useState('');
+  const scrollRef = useRef(null);
+
+  const isFavorite = useMemo(() => {
+    return favorites.some(product => {
+      return product._id === productId;
+    });
+  }, [favorites, productId]);
+
+  useEffect(() => {
+    fetchDetailProduct(productId)
+      .then(product => {
+        setColor(product.product_colors[0]);
+        setSize(product.product_sizes[0]);
+        setProduct(product);
+        return fetchProducts(1, 'cate_id', product.category_id);
+      })
+      .then(products => {
+        setProducts(products.products);
+        scrollRef.current.scrollTo({
+          y: 0,
+          animated: true,
+        });
+      })
+      .catch(console.log);
+  }, [productId]);
+
   const renderProduct = ({item, index}) => {
     return (
       <>
         <ProductItem
-          title={item.title}
-          price={item.price}
-          source={item.image}
-          onPress={() => console.log(item)}
-          cost={item.cost}
-          saleoff={item.saleoff}
-          rate={item.rate}
+          title={item.product_name}
+          price={`$${
+            item.saleOff
+              ? (item.product_price * (1 - item.saleOff / 100)).toFixed(2)
+              : item.product_price
+          }`}
+          source={{uri: item.product_thumbnail}}
+          onPress={() => setProductId(item._id)}
+          cost={item.saleOff && `$${item.product_price}`}
+          saleoff={item.saleOff && item.saleOff + '% off'}
           width={141}
         />
-        <Spacer w={16} />
+        <Spacer w={sizes.xvi} />
       </>
     );
   };
@@ -41,6 +93,7 @@ const Detail = ({navigation}) => {
   return (
     <>
       <ScrollView
+        ref={scrollRef}
         style={containerAttr.container}
         showsVerticalScrollIndicator={false}>
         <Wrapper statusbar>
@@ -56,7 +109,7 @@ const Detail = ({navigation}) => {
                 size={sizes.xvi}
                 color={colors.dark}
                 numLine={1}>
-                Nike Air Max 270 Rea...
+                {product.product_name || ''}
               </CText>
             }
             rightComponent={
@@ -82,13 +135,14 @@ const Detail = ({navigation}) => {
             }
           />
           <Section>
-            <Image
-              source={require('../../assets/common/img-product.png')}
-              style={styles.img}
-              resizeMode="contain"
+            <Carousel
+              data={product.product_images || []}
+              renderItem={({item}) => {
+                return <Image source={{uri: item}} style={styles.img} />;
+              }}
             />
 
-            <Spacer h={40} />
+            <Spacer h={sizes.xxii} />
 
             <Section ph={sizes.xvi}>
               <Row justify={'space-between'}>
@@ -98,16 +152,27 @@ const Detail = ({navigation}) => {
                   type="button"
                   numLine={2}
                   style={styles.name}>
-                  Nike Air Zoom Pegasus 36 Miami
+                  {product.product_name || ''}
                 </CText>
-                <Icon name="hearto" color={colors.grey} size={sizes.xxiv} />
+                <TouchableOpacity
+                  onPress={() => {
+                    dispatch(addProductIntoFavorites({productId: product._id}));
+                  }}>
+                  <Icon
+                    name={isFavorite ? 'heart' : 'hearto'}
+                    color={isFavorite ? colors.red : colors.grey}
+                    size={sizes.xxiv}
+                  />
+                </TouchableOpacity>
               </Row>
 
               <Spacer h={8} />
               <RatingBar rate={4.5} disable />
               <Spacer h={16} />
               <CText type="button" color={colors.primary} size={sizes.xx}>
-                {'$299'}
+                {(product.product_price * (1 - product.saleOff / 100)).toFixed(
+                  2,
+                ) || ''}
               </CText>
 
               <Spacer h={24} />
@@ -117,17 +182,22 @@ const Detail = ({navigation}) => {
                 <Title title={'Select Size'} />
                 <Spacer h={12} />
                 <FlatList
-                  data={['XS', 'S', 'M', 'L', 'XL', 'XXL']}
+                  data={product.product_sizes || []}
                   renderItem={({item}) => (
                     <>
-                      <View style={styles.circle}>
+                      <TouchableOpacity
+                        onPress={() => setSize(item)}
+                        style={[
+                          styles.circle,
+                          item === size && styles.selectedCircle,
+                        ]}>
                         <CText
                           size={sizes.xiv}
                           color={colors.dark}
                           type="button">
                           {item}
                         </CText>
-                      </View>
+                      </TouchableOpacity>
                       <Spacer w={16} />
                     </>
                   )}
@@ -144,12 +214,14 @@ const Detail = ({navigation}) => {
                 <Title title={'Select Size'} />
                 <Spacer h={12} />
                 <FlatList
-                  data={Object.entries(colors)}
+                  data={product.product_colors || []}
                   renderItem={({item}) => (
                     <>
-                      <View style={[styles.circle, {backgroundColor: item[1]}]}>
-                        <View style={styles.selectedDot} />
-                      </View>
+                      <TouchableOpacity
+                        style={[styles.circle, {backgroundColor: item}]}
+                        onPress={() => setColor(item)}>
+                        {item === color && <View style={styles.selectedDot} />}
+                      </TouchableOpacity>
                       <Spacer w={16} />
                     </>
                   )}
@@ -164,14 +236,7 @@ const Detail = ({navigation}) => {
               <Spacer h={24} />
               <Section>
                 <Title title={'Specification'} />
-                <CText>
-                  lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  euismod lacinia augue, eu accumsan leo lobortis lorem vitae.
-                </CText>
-                <CText>
-                  Donec euismod lacinia augue, eu accumsan leo lobortis lorem
-                  vitae. Donec euismod lac
-                </CText>
+                <CText>{product.product_description || ''}</CText>
               </Section>
 
               <Spacer h={sizes.xxiv} />
@@ -200,9 +265,9 @@ const Detail = ({navigation}) => {
                 <Title title={'You Might Also Like'} />
                 <Spacer h={sizes.xxii} />
                 <FlatList
-                  data={data}
+                  data={products}
                   renderItem={renderProduct}
-                  keyExtractor={item => item.id}
+                  keyExtractor={item => item._id}
                   horizontal
                   showsHorizontalScrollIndicator={false}
                 />
@@ -213,7 +278,18 @@ const Detail = ({navigation}) => {
         <Spacer h={90} />
       </ScrollView>
       <Section p={sizes.xvi} style={styles.addToCart}>
-        <CButton background={colors.primary} style={styles.shadowbutton}>
+        <CButton
+          background={colors.primary}
+          style={styles.shadowbutton}
+          onPress={() => {
+            dispatch(
+              addProductToCart({
+                productId: product._id,
+                size: size,
+                color: color,
+              }),
+            );
+          }}>
           <CText type="button">Add To Cart</CText>
         </CButton>
       </Section>

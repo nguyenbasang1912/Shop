@@ -1,10 +1,10 @@
 import React, {useCallback} from 'react';
-import {FlatList, Image, ScrollView, StyleSheet} from 'react-native';
+import {FlatList, Image, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   CButton,
   CText,
-  Input,
   Row,
   Section,
   Spacer,
@@ -13,37 +13,20 @@ import {
 } from '../../components';
 import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
-
-const carts = [
-  {
-    id: 1,
-    name: 'Airpods',
-    image: require('../../assets/common/img-product.png'),
-    price: '$199',
-    quantity: 1,
-  },
-  {
-    id: 2,
-    name: 'Airpods',
-    image: require('../../assets/common/img-product.png'),
-    price: '$199',
-    quantity: 1,
-  },
-  {
-    id: 3,
-    name: 'Airpods',
-    image: require('../../assets/common/img-product.png'),
-    price: '$199',
-    quantity: 1,
-  },
-];
+import {updateQuantity} from '../../store/thunk/cart';
 
 const Cart = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {cart} = useSelector(state => state.cart);
+
+  console.log(cart);
+
   const renderCartItem = useCallback(({item}) => {
     return (
       <Row style={styles.cartItem}>
         <Image
-          source={require('../../assets/common/img-product.png')}
+          // source={require('../../assets/common/img-product.png')}
+          source={{uri: item.productId.product_thumbnail}}
           style={styles.img}
         />
         <Spacer w={sizes.xii} />
@@ -58,7 +41,7 @@ const Cart = ({navigation}) => {
               numLine={2}
               type="button"
               color={colors.dark}>
-              Nike Air Zoom Pegasus 36 Miami Nike Air Zoom
+              {item.productId.product_name}
             </CText>
             <Row>
               <Spacer w={sizes.xvi} />
@@ -73,12 +56,20 @@ const Cart = ({navigation}) => {
           </Row>
           <Row justify={'space-between'}>
             <CText type="button" color={colors.primary}>
-              $199
+              {`$${item.productId.product_price}`}
             </CText>
             <Row style={styles.wrapperQuantity}>
               <CButton
                 wrapcontent
                 resetpm
+                onPress={() => {
+                  dispatch(
+                    updateQuantity({
+                      productId: item.productId._id,
+                      quantity: item.quantity - 1,
+                    }),
+                  );
+                }}
                 background={colors.white}
                 style={[styles.button, styles.bLeft]}>
                 <Icon name="minus" size={sizes.xvi} />
@@ -88,9 +79,17 @@ const Cart = ({navigation}) => {
                 color={colors.grey}
                 w={sizes.xxxx}
                 textAlign={'center'}>
-                1
+                {item.quantity}
               </CText>
               <CButton
+                onPress={() => {
+                  dispatch(
+                    updateQuantity({
+                      productId: item.productId._id,
+                      quantity: item.quantity + 1,
+                    }),
+                  );
+                }}
                 wrapcontent
                 resetpm
                 background={colors.white}
@@ -116,62 +115,17 @@ const Cart = ({navigation}) => {
       />
       <Section p={sizes.xvi} f={1}>
         <FlatList
-          data={carts}
+          data={cart}
           renderItem={renderCartItem}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item._id}
           ItemSeparatorComponent={<Spacer h={sizes.xvi} />}
           showsVerticalScrollIndicator={false}
         />
       </Section>
-
-      <Section f={1} p={sizes.xvi}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Input
-            style={containerAttr.resetpm}
-            showRightIcon
-            leftNode={<Spacer w={sizes.xxii} />}
-            rightNode={
-              <CButton
-                wrapcontent
-                background={colors.primary}
-                style={styles.promo}>
-                <CText type="button">Apply</CText>
-              </CButton>
-            }
-          />
-          <Spacer h={sizes.xvi} />
-          <Section p={sizes.xvi} style={[containerAttr.borderColor]}>
-            <Row justify={'space-between'}>
-              <CText>Item (3)</CText>
-              <CText color={colors.dark}>$598.86</CText>
-            </Row>
-            <Spacer h={sizes.xii} />
-            <Row justify={'space-between'}>
-              <CText>Shipping</CText>
-              <CText color={colors.dark}>$40</CText>
-            </Row>
-            <Spacer h={sizes.xii} />
-            <Row justify={'space-between'}>
-              <CText>Import charges</CText>
-              <CText color={colors.dark}>$128.23</CText>
-            </Row>
-            <Spacer h={sizes.xii} />
-            <Spacer f={1} h={1} color={colors.light} />
-            <Spacer h={sizes.xii} />
-            <Row justify={'space-between'}>
-              <CText type="button" color={colors.dark}>
-                Total Price
-              </CText>
-              <CText type="button" color={colors.primary}>
-                $128.23
-              </CText>
-            </Row>
-          </Section>
-          <Spacer h={sizes.xvi} />
-          <CButton background={colors.primary}>
-            <CText type="button">Check Out</CText>
-          </CButton>
-        </ScrollView>
+      <Section ph={sizes.xvi} pv={sizes.xvi}>
+        <CButton background={colors.primary}>
+          <CText type="button">Check Out</CText>
+        </CButton>
       </Section>
     </Wrapper>
   );

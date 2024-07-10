@@ -12,20 +12,27 @@ import {
 import {data} from '../../example/data/product';
 import {colors} from '../../utils/styles';
 import {WINDOW_WIDTH, sizes} from '../../utils/styles/sizes';
+import {useSelector} from 'react-redux';
+import {stackName} from '../../navigator/routeName';
 
 const Favorite = ({navigation}) => {
+  const {favorites} = useSelector(state => state.cart);
   const renderProduct = ({item, index}) => {
-    console.log(index);
     return (
       <>
         <ProductItem
-          title={item.title}
-          price={item.price}
-          source={item.image}
-          onPress={() => console.log(item)}
-          cost={item.cost}
-          saleoff={item.saleoff}
-          rate={item.rate}
+          title={item.product_name}
+          price={`$${
+            item.saleOff
+              ? (item.product_price * (1 - item.saleOff / 100)).toFixed(2)
+              : item.product_price
+          }`}
+          source={{uri: item.product_thumbnail}}
+          onPress={() =>
+            navigation.navigate(stackName.detail, {productId: item._id})
+          }
+          cost={item.saleOff && item.product_price}
+          saleoff={item.saleOff && item.saleOff + '% off'}
           width={WINDOW_WIDTH / 2 - 16 - 6}
         />
       </>
@@ -48,7 +55,7 @@ const Favorite = ({navigation}) => {
         style={styles.line}
       />
       <FlatList
-        data={data}
+        data={favorites}
         renderItem={renderProduct}
         keyExtractor={item => item.id}
         numColumns={2}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   FlatList,
   Keyboard,
@@ -18,11 +18,11 @@ import {
   Title,
   Wrapper,
 } from '../../components';
-import { fetchChildrenCategories, fetchProducts } from '../../configs/api';
-import { data } from '../../example/data/slide';
-import { stackName, tabName } from '../../navigator/routeName';
-import { colors, containerAttr } from '../../utils/styles';
-import { sizes, WINDOW_WIDTH } from '../../utils/styles/sizes';
+import {fetchChildrenCategories, fetchProducts} from '../../configs/api';
+import {data} from '../../example/data/slide';
+import {stackName, tabName} from '../../navigator/routeName';
+import {colors, containerAttr} from '../../utils/styles';
+import {sizes, WINDOW_WIDTH} from '../../utils/styles/sizes';
 
 const Home = ({navigation}) => {
   const [categories, setCategories] = useState([]);
@@ -72,7 +72,9 @@ const Home = ({navigation}) => {
                   : item.product_price
               }`}
               source={{uri: item.product_thumbnail}}
-              onPress={() => navigation.navigate(stackName.detail)}
+              onPress={() =>
+                navigation.navigate(stackName.detail, {productId: item._id})
+              }
               cost={item.saleOff && item.product_price}
               saleoff={item.saleOff && item.saleOff + '% off'}
               width={width}

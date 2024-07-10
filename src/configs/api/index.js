@@ -26,12 +26,17 @@ const fetchProducts = async (page = 1, type = '', payload) => {
   }
 };
 
-const fetchDetailProduct = async () => {
+const fetchDetailProduct = async productId => {
   try {
-    const response = await axiosInstance.get()
+    const response = await axiosInstance.get(
+      `/api/product/detail/${productId}`,
+    );
+    if (response.data) {
+      return response.data;
+    }
   } catch (error) {
-    
+    throw error;
   }
-}
+};
 
-export {fetchChildrenCategories, fetchProducts};
+export {fetchChildrenCategories, fetchProducts, fetchDetailProduct};

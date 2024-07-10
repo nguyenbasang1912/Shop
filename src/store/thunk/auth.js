@@ -11,4 +11,14 @@ const login = createAsyncThunk('auth/login', async (body, thunkApi) => {
   }
 });
 
-export {login};
+const getInfo = createAsyncThunk('auth/getInfo', async (body, thunkApi) => {
+  try {
+    const response = await axiosInstance.post('/api/auth');
+    return response;
+  } catch (error) {
+    console.log('getInfo error: ' + error);
+    return thunkApi.rejectWithValue(true);
+  }
+});
+
+export {login, getInfo};
