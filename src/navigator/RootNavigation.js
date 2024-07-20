@@ -12,6 +12,7 @@ import {
   PhoneNumber,
   Profile,
   Review,
+  SeeMore,
   WriteReview,
 } from '../screens/main';
 import TabNavigation from './TabNavigation';
@@ -42,6 +43,7 @@ function RootNavigation() {
           <Stack.Screen name={stackName.name} component={Name} />
           <Stack.Screen name={stackName.gender} component={Gender} />
           <Stack.Screen name={stackName.phone} component={PhoneNumber} />
+          <Stack.Screen name={stackName.seeMore} component={SeeMore} />
           <Stack.Screen
             name={stackName.changePass}
             component={ChangePassword}

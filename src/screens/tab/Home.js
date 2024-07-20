@@ -47,6 +47,12 @@ const Home = ({navigation}) => {
     return (
       <>
         <CategoryItem
+          onClick={() =>
+            navigation.navigate(stackName.seeMore, {
+              categoryId: item._id,
+              title: item.category_name,
+            })
+          }
           source={{uri: item.category_thumbnail}}
           title={item.category_name}
         />
@@ -120,12 +126,7 @@ const Home = ({navigation}) => {
           <Carousel data={data} />
           {/** Categories */}
           <Section ph={16}>
-            <Title
-              title="Category"
-              more="More Category"
-              titleMoreColor={colors.primary}
-              onClickMore={() => console.log('more')}
-            />
+            <Title title="Category" />
             <Spacer h={12} />
             <FlatList
               showsHorizontalScrollIndicator={false}
@@ -137,7 +138,16 @@ const Home = ({navigation}) => {
           <Section p={sizes.xvi}>
             {/** Sale off product */}
             <Section>
-              <Title title={'Sale off'} more={'See more'} />
+              <Title
+                title={'Sale off'}
+                more={'See more'}
+                onClickMore={() => {
+                  navigation.navigate(stackName.seeMore, {
+                    categoryId: 'sale_off',
+                    title: 'Sale Off',
+                  });
+                }}
+              />
               <Spacer h={12} />
               <FlatList
                 horizontal

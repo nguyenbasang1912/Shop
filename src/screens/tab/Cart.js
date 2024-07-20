@@ -13,14 +13,12 @@ import {
 } from '../../components';
 import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
-import {updateQuantity} from '../../store/thunk/cart';
+import {deleteProduct, updateQuantity} from '../../store/thunk/cart';
 
 const Cart = ({navigation}) => {
   const dispatch = useDispatch();
   const {cart} = useSelector(state => state.cart);
-
-  console.log(cart);
-
+  
   const renderCartItem = useCallback(({item}) => {
     return (
       <Row style={styles.cartItem}>
@@ -49,7 +47,17 @@ const Cart = ({navigation}) => {
                 <Icon name="hearto" size={sizes.xviii} color={colors.grey} />
               </CButton>
               <Spacer w={sizes.viii} />
-              <CButton wrapcontent resetpm>
+              <CButton
+                wrapcontent
+                resetpm
+                onPress={() => {
+                  console.log('id: ',item.productId._id)
+                  dispatch(
+                    deleteProduct({
+                      productId: item.productId._id,
+                    }),
+                  );
+                }}>
                 <Icon name="delete" size={sizes.xviii} color={colors.grey} />
               </CButton>
             </Row>

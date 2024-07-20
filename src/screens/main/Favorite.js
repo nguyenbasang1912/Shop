@@ -1,6 +1,7 @@
 import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   CButton,
   CText,
@@ -9,14 +10,14 @@ import {
   ToolBar,
   Wrapper,
 } from '../../components';
-import {data} from '../../example/data/product';
+import {stackName} from '../../navigator/routeName';
+import {deleteProductInFavorite} from '../../store/thunk/cart';
 import {colors} from '../../utils/styles';
 import {WINDOW_WIDTH, sizes} from '../../utils/styles/sizes';
-import {useSelector} from 'react-redux';
-import {stackName} from '../../navigator/routeName';
 
 const Favorite = ({navigation}) => {
   const {favorites} = useSelector(state => state.cart);
+  const dispatch = useDispatch();
   const renderProduct = ({item, index}) => {
     return (
       <>
@@ -34,6 +35,11 @@ const Favorite = ({navigation}) => {
           cost={item.saleOff && item.product_price}
           saleoff={item.saleOff && item.saleOff + '% off'}
           width={WINDOW_WIDTH / 2 - 16 - 6}
+          isFavorite
+          onPressDelete={() => {
+            console.log(item._id);
+            dispatch(deleteProductInFavorite(item._id));
+          }}
         />
       </>
     );
@@ -57,7 +63,7 @@ const Favorite = ({navigation}) => {
       <FlatList
         data={favorites}
         renderItem={renderProduct}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item._id}
         numColumns={2}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{padding: 16}}

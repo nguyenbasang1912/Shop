@@ -9,6 +9,7 @@ import PhoneNumber from './PhoneNumber';
 import Profile from './Profile';
 import Review from './Review';
 import WriteReview from './WriteReview';
+import SeeMore from './SeeMore';
 
 export {
   ChangeEmail,
@@ -22,4 +23,5 @@ export {
   Profile,
   Review,
   WriteReview,
+  SeeMore
 };

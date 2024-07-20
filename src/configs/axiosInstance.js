@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use(config => {
   //   'Bearer ' + store.getState().auth.accessToken ||
   //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjhkMGRiYjNlYTE5N2JlYjM3YmJiNTYiLCJlbWFpbCI6IjIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyMDU3NDUyNSwiZXhwIjoxNzIwNTc4MTI1fQ.UJf6Yy_956caOTdiekFhkQVj3-NwJri_VbHkyz5Nrco';
 
-  config.headers.Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjhkMGRiYjNlYTE5N2JlYjM3YmJiNTYiLCJlbWFpbCI6IjIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyMDU3ODY4OSwiZXhwIjoxNzIwNTgyMjg5fQ.7Yqr8daFC_c9r5HHcygXPlzS-x5uJQ5NRsZWJZFnSjU'
+  config.headers.Authorization = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjhkMGRiYjNlYTE5N2JlYjM3YmJiNTYiLCJlbWFpbCI6IjIiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyMDU4MjQxMSwiZXhwIjoxNzIwNjAwNDExfQ.7EtVtvfmjx0PLUq40YzSGuR7B9T-ceHh6gAbl5laBq4'
   return config;
 });
 
@@ -22,11 +22,6 @@ axiosInstance.interceptors.response.use(
     const originRequest = error.config;
 
     if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-
-      console.log(error.response.status);
-      console.log(error.response.data);
       if (
         error.response.status === 401 &&
         error.response.data.message === 'jwt expired'
@@ -48,7 +43,6 @@ axiosInstance.interceptors.response.use(
         }
       }
     }
-    console.log('error: config', error.config);
   },
 );
 
