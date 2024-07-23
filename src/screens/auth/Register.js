@@ -1,10 +1,12 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {Image, ScrollView, StyleSheet} from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Image, ScrollView, StyleSheet, ToastAndroid } from 'react-native';
 import * as yup from 'yup';
-import {CButton, CText, Input, Spacer, Wrapper} from '../../components';
-import {useForm} from '../../hooks';
-import {colors, containerAttr} from '../../utils/styles';
+import { CButton, CText, Input, Spacer, Wrapper } from '../../components';
+import axiosInstance from '../../configs/axiosInstance';
+import { useForm } from '../../hooks';
+import { stackName } from '../../navigator/routeName';
+import { colors, containerAttr } from '../../utils/styles';
 
 const Register = ({navigation}) => {
   const {t} = useTranslation();
@@ -30,10 +32,29 @@ const Register = ({navigation}) => {
         .oneOf([yup.ref('pass'), null], t('error.input.password.notMatch'))
         .required(t('error.input.password.requiredCFPass')),
     }),
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async (values, {resetForm}) => {
+      const body = {
+        email: values.email,
+        name: values.name,
+        password: values.pass
+      };
+      const message = await registerUser(body, () => {
+        navigation.navigate(stackName.login)
+      });
+      ToastAndroid.show(message, 1000);
+      resetForm();
     },
   });
+
+  const registerUser = async (body, onSuccess) => {
+    try {
+      const res = await axiosInstance.post('/api/auth/register', body);
+      onSuccess()
+      return res.message;
+    } catch (error) {
+      return error.message;
+    }
+  };
 
   return (
     <ScrollView style={containerAttr.container}>

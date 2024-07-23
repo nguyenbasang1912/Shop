@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
-const Row = ({justify, children, style, f, fw, w}) => {
+const Row = ({justify, children, style, f, fw, w, alignItems}) => {
   return (
     <View
       style={[
@@ -11,6 +11,7 @@ const Row = ({justify, children, style, f, fw, w}) => {
           flex: f || 0,
           flexWrap: fw || 'nowrap',
           width: w || 'auto',
+          alignItems: alignItems || 'center',
         },
         style,
       ]}>

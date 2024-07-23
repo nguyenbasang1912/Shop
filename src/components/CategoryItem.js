@@ -24,17 +24,23 @@ const CategoryItem = ({source, title, onClick, size, ...props}) => {
     };
   }, [size]);
 
+  const width = useCallback(() => {
+    return {
+      width: size
+    }
+  }, [size])
+
   return (
     <TouchableOpacity
       activeOpacity={0.5}
       onPress={onClick}
-      style={styles.wrapper}
+      style={[styles.wrapper, width()]}
       {...props}>
       <View style={size ? circleStyle() : styles.circle}>
         <Image style={styles.img} source={source} />
       </View>
       <Spacer h={8} />
-      <CText size={sizes.x} color={colors.grey}>
+      <CText size={sizes.x} color={colors.grey} numLine={1}>
         {title}
       </CText>
     </TouchableOpacity>

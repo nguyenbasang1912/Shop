@@ -14,6 +14,7 @@ import Wrapper from './Wrapper';
 import Title from './Title';
 import ToolBar from './ToolBar';
 import Input from './Input';
+import Checkbox from './Checkbox';
 
 export {
   Input,
@@ -32,4 +33,5 @@ export {
   Wrapper,
   Title,
   ToolBar,
+  Checkbox
 };

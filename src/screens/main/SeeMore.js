@@ -1,41 +1,32 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {ActivityIndicator, FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {useDispatch, useSelector} from 'react-redux';
 import {
   CButton,
   CText,
   ProductItem,
   Section,
-  Spacer,
   ToolBar,
   Wrapper,
 } from '../../components';
 import {stackName} from '../../navigator/routeName';
-import {resetProduct} from '../../store/slices/cart';
-import {fetchProducts, fetchSaleOffProducts} from '../../store/thunk/cart';
 import {colors} from '../../utils/styles';
 import {sizes, WINDOW_WIDTH} from '../../utils/styles/sizes';
+import {fetchProducts} from '../../configs/api';
 
 const SeeMore = ({navigation, route}) => {
-  const {productInfo, loading} = useSelector(state => state.cart);
-  const dispatch = useDispatch();
-  const [categoryId, setCategoryId] = useState(route.params.categoryId);
-
+  const {categoryId, title} = route.params;
+  console.log(route.params)
+  const [products, setProducts] = useState(null);
   useEffect(() => {
-    if (categoryId === 'sale_off') {
-      dispatch(resetProduct());
-      dispatch(fetchSaleOffProducts({page: 1}));
+    if (title === 'Sale Off') {
+      fetchProducts(1, 'sale_off').then(res => setProducts(res));
     } else {
-      console.log('sss');
-      dispatch(resetProduct());
-      dispatch(fetchProducts({page: 1, categoryId: categoryId}));
+      fetchProducts(1, 'cate_id', categoryId).then(res => setProducts(res));
     }
   }, [categoryId]);
 
-  console.log(productInfo.products);
-
-  const renderProduct = useCallback(({item, index}) => {
+  const renderProduct = useCallback(({item}) => {
     return (
       <>
         <ProductItem
@@ -58,21 +49,33 @@ const SeeMore = ({navigation, route}) => {
   }, []);
 
   const handleLoad = () => {
-    if (route.params.title === 'Sale Off') {
-      if (productInfo.page.currentPage + 1 <= productInfo.page.maxPages) {
-        dispatch(
-          fetchSaleOffProducts({
-            page: productInfo.page.currentPage + 1,
-          }),
-        );
-      }
-    } else {
-      if (productInfo.page.currentPage + 1 <= productInfo.page.maxPages) {
-        dispatch(
-          fetchProducts({
-            page: productInfo.page.currentPage + 1,
-          }),
-        );
+    if (!products?.page) {
+      return;
+    }
+    console.log(products.page.currentPage, products.page.maxPages);
+    if (products.page.currentPage + 1 <= products.page.maxPages) {
+      if (title === 'Sale Off') {
+        fetchProducts(products.page.currentPage + 1, 'sale_off').then(res => {
+          setProducts(prev => {
+            return {
+              ...res,
+              products: [...prev.products, ...res.products],
+            };
+          });
+        });
+      } else {
+        fetchProducts(
+          products.page.currentPage + 1,
+          'cate_id',
+          categoryId,
+        ).then(res => {
+          setProducts(prev => {
+            return {
+              ...prev,
+              products: [...prev.products, ...res.products],
+            };
+          });
+        });
       }
     }
   };
@@ -87,7 +90,7 @@ const SeeMore = ({navigation, route}) => {
         }
         centerComponent={
           <CText type="button" size={sizes.xvi} color={colors.dark} numLine={1}>
-            {route.params.title}
+            {title}
           </CText>
         }
         style={styles.line}
@@ -95,7 +98,7 @@ const SeeMore = ({navigation, route}) => {
       <FlatList
         onEndReached={handleLoad}
         onEndReachedThreshold={0}
-        data={productInfo.products}
+        data={products?.products || []}
         renderItem={renderProduct}
         keyExtractor={item => item._id}
         numColumns={2}
@@ -103,14 +106,6 @@ const SeeMore = ({navigation, route}) => {
         contentContainerStyle={{padding: 16}}
         columnWrapperStyle={{gap: 12}}
         ItemSeparatorComponent={<Section h={12} />}
-        ListFooterComponent={
-          loading && (
-            <>
-              <Spacer h={sizes.xvi} />
-              <ActivityIndicator size={sizes.xxvi} color={colors.grey} />
-            </>
-          )
-        }
       />
     </Wrapper>
   );

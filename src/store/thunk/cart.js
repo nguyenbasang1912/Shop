@@ -1,35 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axiosInstance from '../../configs/axiosInstance';
 
-const addProductIntoFavorites = createAsyncThunk(
-  'product/favorites',
-  async (body, thunkAPI) => {
-    try {
-      const response = await axiosInstance.post('/api/auth/favorite', body);
-      if (response.data) {
-        return response.data;
-      }
-      return [];
-    } catch (err) {
-      throw err;
-    }
-  },
-);
-
-const deleteProductInFavorite = createAsyncThunk(
-  'product/favorites/delete',
-  async (body, thunkAPI) => {
-    try {
-      const response = await axiosInstance.delete(`/api/auth/favorite/${body}`);
-      if (response.data) {
-        return response.data;
-      }
-    } catch (error) {
-      throw error;
-    }
-  },
-);
-
 const addProductToCart = createAsyncThunk(
   'product/cart',
   async (body, thunkAPI) => {
@@ -40,7 +11,7 @@ const addProductToCart = createAsyncThunk(
       }
       return [];
     } catch (err) {
-      throw err;
+      return thunkAPI.rejectWithValue(err.message);
     }
   },
 );
@@ -67,7 +38,8 @@ const updateQuantity = createAsyncThunk(
       }
       return [];
     } catch (error) {
-      throw error;
+      console.log('updateQuantity error: ', error);
+      return thunk.rejectWithValue(error.message);
     }
   },
 );
@@ -77,7 +49,6 @@ const deleteProduct = createAsyncThunk(
   async (body, thunk) => {
     try {
       const response = await axiosInstance.post(`/api/cart/delete`, body);
-      console.log(response);
       if (response.data) {
         return response.data;
       }
@@ -117,12 +88,10 @@ const fetchSaleOffProducts = createAsyncThunk(
 );
 
 export {
-  addProductIntoFavorites,
   addProductToCart,
   getCart,
   updateQuantity,
   deleteProduct,
-  deleteProductInFavorite,
   fetchProducts,
   fetchSaleOffProducts,
 };

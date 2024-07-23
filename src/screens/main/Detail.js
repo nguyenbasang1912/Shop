@@ -28,14 +28,16 @@ import {colors, containerAttr} from '../../utils/styles';
 import {WINDOW_WIDTH, sizes} from '../../utils/styles/sizes';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  addProductIntoFavorites,
   addProductToCart,
 } from '../../store/thunk/cart';
+import {
+  addProductIntoFavorites
+} from '../../store/thunk/favorite'
 
 const Detail = ({navigation, route}) => {
   const dispatch = useDispatch();
   const {favorites} = useSelector(state => {
-    return state.cart;
+    return state.favorite;
   });
 
   const [product, setProduct] = useState({});

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   FlatList,
@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../utils/styles';
-import {WINDOW_WIDTH, sizes} from '../utils/styles/sizes';
-import {CText, CountDown, Row, Spacer} from '.';
+import { CText, CountDown, Row, Spacer } from '.';
+import { colors } from '../utils/styles';
+import { WINDOW_WIDTH, sizes } from '../utils/styles/sizes';
 
 const Carousel = ({data, renderItem}) => {
   const scrollX = useRef(new Animated.Value(0)).current;

@@ -11,12 +11,12 @@ import {
   Wrapper,
 } from '../../components';
 import {stackName} from '../../navigator/routeName';
-import {deleteProductInFavorite} from '../../store/thunk/cart';
+import {deleteProductInFavorite} from '../../store/thunk/favorite';
 import {colors} from '../../utils/styles';
 import {WINDOW_WIDTH, sizes} from '../../utils/styles/sizes';
 
 const Favorite = ({navigation}) => {
-  const {favorites} = useSelector(state => state.cart);
+  const {favorites} = useSelector(state => state.favorite);
   const dispatch = useDispatch();
   const renderProduct = ({item, index}) => {
     return (
@@ -37,7 +37,6 @@ const Favorite = ({navigation}) => {
           width={WINDOW_WIDTH / 2 - 16 - 6}
           isFavorite
           onPressDelete={() => {
-            console.log(item._id);
             dispatch(deleteProductInFavorite(item._id));
           }}
         />

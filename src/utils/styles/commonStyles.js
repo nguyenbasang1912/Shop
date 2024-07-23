@@ -71,6 +71,10 @@ export const containerAttr = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.light,
   },
+  topLine: {
+    borderTopWidth: 1,
+    borderTopColor: colors.light,
+  },
   container: {
     flex: 1,
     backgroundColor: colors.white,

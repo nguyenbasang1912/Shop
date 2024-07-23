@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {CButton, CText, RatingBar, Row, Section, Spacer} from '.';
@@ -45,7 +45,7 @@ const ProductItem = ({
         <Spacer h={8} />
         <Row>
           <CText color={colors.grey} size={sizes.x} style={styles.cost}>
-            {cost || ' '}
+            {cost !== 0 && `$${cost}`}
           </CText>
           <Spacer w={8} />
           <CText color={colors.red} size={sizes.x} type="button">
@@ -64,7 +64,7 @@ const ProductItem = ({
   );
 };
 
-export default ProductItem;
+export default memo(ProductItem);
 
 const styles = StyleSheet.create({
   box: {

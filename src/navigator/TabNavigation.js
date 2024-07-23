@@ -1,23 +1,15 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useEffect, useState} from 'react';
-import {Keyboard, StyleSheet, Text, View} from 'react-native';
+import {Keyboard, StyleSheet, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {CButton, CText} from '../components';
 import {Account, Cart, Explore, Home} from '../screens/tab';
+import Offer from '../screens/tab/Offer';
 import {colors, containerAttr} from '../utils/styles';
 
 const Tab = createBottomTabNavigator();
 
 const icons = ['home', 'search1', 'shoppingcart', 'gift', 'profile'];
-
-const Offer = props => {
-  console.log(props);
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Offer</Text>
-    </View>
-  );
-};
 
 const TabBarCustom = ({state, descriptors, navigation}) => {
   const [isKeyboardShow, setIsKeyboardShow] = useState(false);

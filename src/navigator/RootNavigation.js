@@ -1,26 +1,53 @@
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  createNavigationContainerRef,
+  NavigationContainer,
+} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StatusBar} from 'react-native';
 import {Login, Register} from '../screens/auth';
 import {
+  Address,
   ChangeEmail,
   ChangePassword,
+  Checkout,
   Detail,
   Favorite,
   Gender,
   Name,
+  Order,
   PhoneNumber,
   Profile,
   Review,
+  Search,
   SeeMore,
   WriteReview,
 } from '../screens/main';
 import TabNavigation from './TabNavigation';
 import {stackName} from './routeName';
+import {createRef, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getMe} from '../store/thunk/auth';
 
 const Stack = createStackNavigator();
+export const navigationRef = createNavigationContainerRef(null);
 
 function RootNavigation() {
+  const auth = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
+  const getInitRoute = () => {
+    if (auth.status.isLoggedIn) {
+      return stackName.tab;
+    }
+    return stackName.login;
+  };
+
+  useEffect(() => {
+    if (auth.status.isLoggedIn) {
+      dispatch(getMe());
+    }
+  }, []);
+
   return (
     <>
       <StatusBar
@@ -28,10 +55,10 @@ function RootNavigation() {
         backgroundColor={'transparent'}
         barStyle={'dark-content'}
       />
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator
           screenOptions={{headerShown: false}}
-          initialRouteName={stackName.login}>
+          initialRouteName={getInitRoute()}>
           <Stack.Screen name={stackName.login} component={Login} />
           <Stack.Screen name={stackName.register} component={Register} />
           <Stack.Screen name={stackName.tab} component={TabNavigation} />
@@ -49,6 +76,10 @@ function RootNavigation() {
             component={ChangePassword}
           />
           <Stack.Screen name={stackName.changeEmail} component={ChangeEmail} />
+          <Stack.Screen name={stackName.search} component={Search} />
+          <Stack.Screen name={stackName.address} component={Address} />
+          <Stack.Screen name={stackName.order} component={Order} />
+          <Stack.Screen name={stackName.checkout} component={Checkout} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

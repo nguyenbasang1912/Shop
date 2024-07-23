@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {ActivityIndicator, Image, ScrollView, StyleSheet} from 'react-native';
 import * as yup from 'yup';
@@ -8,12 +8,19 @@ import {useForm} from '../../hooks';
 import {stackName} from '../../navigator/routeName';
 import {colors, containerAttr} from '../../utils/styles';
 import {useDispatch, useSelector} from 'react-redux';
-import {login} from '../../store/thunk/auth';
-import { sizes } from '../../utils/styles/sizes';
+import {getMe, login} from '../../store/thunk/auth';
+import {sizes} from '../../utils/styles/sizes';
 
 const Login = ({navigation}) => {
-  const {loading, error: errorResponse} = useSelector(state => state.auth);
+  const {status} = useSelector(state => state.auth);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status.success) {
+      navigation.navigate(stackName.tab);
+      dispatch(getMe());
+    }
+  }, [status.success]);
 
   const {t} = useTranslation();
   const {error, submitForm, values, onChangeValue} = useForm({
@@ -31,8 +38,9 @@ const Login = ({navigation}) => {
         .min(8, t('error.input.password.minLength'))
         .required(t('error.input.password.required')),
     }),
-    onSubmit: values => {
+    onSubmit: (values, {resetForm}) => {
       dispatch(login(values));
+      resetForm();
     },
   });
 
@@ -74,11 +82,13 @@ const Login = ({navigation}) => {
           onPress={() => {
             submitForm();
           }}>
-          {!loading ? <CText type="button" color={colors.white}>
-            {t('login.signin')}
-          </CText> : 
-            <ActivityIndicator size={sizes.xviii}/>
-          }
+          {!status.loading ? (
+            <CText type="button" color={colors.white}>
+              {t('login.signin')}
+            </CText>
+          ) : (
+            <ActivityIndicator size={sizes.xviii} color={colors.white} />
+          )}
         </CButton>
         <Spacer h={21} />
         <Row>

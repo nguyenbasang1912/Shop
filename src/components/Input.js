@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {memo, useCallback, useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
 import {colors, containerAttr, typography} from '../utils/styles';
@@ -52,9 +52,7 @@ const Input = ({
 
   const renderRight = useCallback(() => {
     return rightNode ? (
-      <CButton wrapcontent resetpm onPress={handleRightIcon}>
-        {rightNode}
-      </CButton>
+      rightNode
     ) : (
       <CButton wrapcontent resetpm onPress={handleRightIcon}>
         <IconAnt
@@ -71,6 +69,7 @@ const Input = ({
       </CButton>
     );
   }, [isFocused, err, rightNode]);
+
   return (
     <>
       <Section
@@ -114,7 +113,7 @@ const Input = ({
   );
 };
 
-export default Input;
+export default memo(Input);
 
 const styles = StyleSheet.create({
   fs: {

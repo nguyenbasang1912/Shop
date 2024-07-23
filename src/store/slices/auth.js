@@ -1,42 +1,88 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {login} from '../thunk/auth';
+import { createSlice } from '@reduxjs/toolkit';
+import { login, logoutUser } from '../thunk/auth';
 
 const initialState = {
-  user: {},
-  accessToken: null,
-  refreshToken: null,
-  error: false,
-  loading: false,
+  user: {
+    email: '',
+    name: '',
+    avatar: '',
+  },
+  tokens: {
+    accessToken: '',
+    refreshToken: '',
+  },
+  status: {
+    loading: false,
+    error: false,
+    success: false,
+    isLoggedIn: false,
+  },
 };
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    logoutLocal: (state, action) => {
+      state.status.isLoggedIn = false;
+      state.status.error = false;
+      state.status.success = false;
+      state.status.loading = false;
+      state.user = {
+        email: '',
+        name: '',
+        avatar: '',
+      };
+      state.tokens = {
+        accessToken: '',
+        refreshToken: '',
+      };
+    },
     updateTokens: (state, action) => {
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-    }
+      state.tokens.accessToken = action.payload.accessToken;
+      state.tokens.refreshToken = action.payload.refreshToken;
+    },
   },
   extraReducers: builder => {
     builder
-      .addCase(login.pending, (state, action) => {
-        state.loading = true;
-        state.error = false;
-      })
       .addCase(login.fulfilled, (state, action) => {
+        state.tokens.accessToken = action.payload.data.tokens.accessToken;
+        state.tokens.refreshToken = action.payload.data.tokens.refreshToken;
         state.user = action.payload.data.user;
-        state.accessToken = action.payload.data.tokens.accessToken;
-        state.refreshToken = action.payload.data.tokens.refreshToken;
-        state.loading = false;
-        state.error = false;
+        state.status.loading = false;
+        state.status.success = true;
+        state.status.error = false;
+        state.status.isLoggedIn = true;
       })
-      .addCase(login.rejected, (state, action) => {
-        state.error = true;
-        state.loading = false;
+      .addCase(login.pending, state => {
+        state.status.loading = true;
+        state.status.success = false;
+        state.status.error = false;
+        state.status.isLoggedIn = false;
+      })
+      .addCase(login.rejected, state => {
+        state.status.loading = false;
+        state.status.error = true;
+        state.status.success = false;
+        state.status.isLoggedIn = false;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.status.loading = false;
+        state.status.error = false;
+        state.status.success = false;
+        state.status.isLoggedIn = false;
+        state.user = {
+          email: '',
+          name: '',
+          avatar: '',
+        };
+        state.tokens = {
+          accessToken: '',
+          refreshToken: '',
+        };
       });
   },
 });
 
 export const authReducer = authSlice.reducer;
-export const {updateTokens} = authSlice.actions
+export const {logoutLocal, updateTokens} = authSlice.actions;

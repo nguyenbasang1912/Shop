@@ -10,6 +10,10 @@ import Profile from './Profile';
 import Review from './Review';
 import WriteReview from './WriteReview';
 import SeeMore from './SeeMore';
+import Search from './Search';
+import Address from './Address';
+import Order from './Order';
+import Checkout from './Checkout';
 
 export {
   ChangeEmail,
@@ -23,5 +27,9 @@ export {
   Profile,
   Review,
   WriteReview,
-  SeeMore
+  SeeMore,
+  Search,
+  Address,
+  Order,
+  Checkout
 };

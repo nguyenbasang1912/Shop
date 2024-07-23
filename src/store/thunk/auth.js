@@ -1,24 +1,31 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axiosInstance from '../../configs/axiosInstance';
 
-const login = createAsyncThunk('auth/login', async (body, thunkApi) => {
+const login = createAsyncThunk('auth/login', async (body, thunk) => {
   try {
-    const response = await axiosInstance.post('/api/auth/login', body);
-    return response;
+    const res = await axiosInstance.post('/api/auth/login', body);
+    return res;
   } catch (error) {
-    console.log('login error: ' + error);
-    return thunkApi.rejectWithValue(true);
+    return thunk.rejectWithValue(error.message);
   }
 });
 
-const getInfo = createAsyncThunk('auth/getInfo', async (body, thunkApi) => {
+const getMe = createAsyncThunk('auth/getMe', async (body, thunk) => {
   try {
-    const response = await axiosInstance.post('/api/auth');
-    return response;
+    const res = await axiosInstance.post('/api/auth');
+    return res.data;
   } catch (error) {
-    console.log('getInfo error: ' + error);
-    return thunkApi.rejectWithValue(true);
+    return thunk.rejectWithValue(error.message);
   }
 });
 
-export {login, getInfo};
+const logoutUser = createAsyncThunk('/auth/logout', async (body, thunk) => {
+  try {
+    await axiosInstance.post('/api/auth/logout');
+    return true
+  } catch (error) {
+    return thunk.rejectWithValue(error.message);
+  }
+})
+
+export {login, getMe, logoutUser};
