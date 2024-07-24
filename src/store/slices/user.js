@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {getMe} from '../thunk/auth';
+import { createNewAddress, deleteAddress, updateAddress } from '../thunk/user';
 
 const initialState = {
   userInfo: {
@@ -10,18 +11,21 @@ const initialState = {
     phone: '',
     avatar: '',
     address: [],
+    defaultAddress: {}
   },
   status: {
-    selectedAddress: null 
-  }
+    selectedAddress: {},
+  },
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    selecteAddress: (state, action) => {
-      state.status.selectedAddress = action.payload.address;
+    selectAddress: (state, action) => {
+      const address = state.userInfo.address.find(addr => addr._id === action.payload)
+      console.log(address)
+      state.status.selectedAddress = address;
     }
   },
   extraReducers: builder => {
@@ -34,8 +38,17 @@ const userSlice = createSlice({
       state.userInfo.phone = data.phone;
       state.userInfo.avatar = data.avatar;
       state.userInfo.address = data.address;
+      state.userInfo.defaultAddress = data?.default_address;
+      state.status.selectedAddress = data?.default_address;
+    }).addCase(createNewAddress.fulfilled, (state, action) => {
+      state.userInfo.address = action.payload;
+    }).addCase(updateAddress.fulfilled, (state, action) => {
+      state.userInfo.address = action.payload
+    }).addCase(deleteAddress.fulfilled, (state, action) => {
+      state.userInfo.address = action.payload;
     });
   },
 });
 
 export const userReducer = userSlice.reducer;
+export const {selectAddress} = userSlice.actions

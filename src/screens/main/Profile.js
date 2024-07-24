@@ -13,6 +13,7 @@ import {
 } from '../../components';
 import { colors } from '../../utils/styles';
 import { sizes } from '../../utils/styles/sizes';
+import { stackName } from '../../navigator/routeName';
 
 const Profile = ({navigation}) => {
   const user = useSelector(state => state.user.userInfo);
@@ -40,15 +41,15 @@ const Profile = ({navigation}) => {
           <CButton wrapcontent resetpm>
             <Image
               style={styles.avatar}
-              source={require('../../assets/common/avatar.png')}
+              source={require('../../assets/common/avatar.jpg')}
             />
           </CButton>
           <Spacer w={sizes.xvi} />
           <Section>
             <CText type="button" color={colors.dark}>
-              James Lawson
+              {user.name || 'Unset'}
             </CText>
-            <CText>@derlaxy</CText>
+            <CText>@{user.name}</CText>
           </Section>
         </Row>
       </Section>
@@ -56,7 +57,7 @@ const Profile = ({navigation}) => {
       <Section style={styles.alignItem}>
         <CButton
           resetpm
-          onPress={() => {}}
+          onPress={() => {navigation.navigate(stackName.gender)}}
           style={{justifyContent: 'flex-start'}}>
           <Section p={sizes.xvi} w="100%">
             <Row justify={'space-between'}>
@@ -81,7 +82,7 @@ const Profile = ({navigation}) => {
         </CButton>
         <CButton
           resetpm
-          onPress={() => {}}
+          onPress={() => {navigation.navigate(stackName.changeEmail)}}
           style={{justifyContent: 'flex-start'}}>
           <Section p={sizes.xvi} w="100%">
             <Row justify={'space-between'}>
@@ -102,7 +103,7 @@ const Profile = ({navigation}) => {
         </CButton>
         <CButton
           resetpm
-          onPress={() => {}}
+          onPress={() => {navigation.navigate(stackName.phone)}}
           style={{justifyContent: 'flex-start'}}>
           <Section p={sizes.xvi} w="100%">
             <Row justify={'space-between'}>
@@ -127,7 +128,7 @@ const Profile = ({navigation}) => {
         </CButton>
         <CButton
           resetpm
-          onPress={() => {}}
+          onPress={() => {navigation.navigate(stackName.changePass)}}
           style={{justifyContent: 'flex-start'}}>
           <Section p={sizes.xvi} w="100%">
             <Row justify={'space-between'}>

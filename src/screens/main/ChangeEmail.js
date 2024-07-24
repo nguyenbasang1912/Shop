@@ -14,12 +14,12 @@ import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const ChangeEmail = () => {
+const ChangeEmail = ({navigation}) => {
   return (
     <Wrapper statusbar>
       <ToolBar
         leftComponent={
-          <CButton wrapcontent resetpm>
+          <CButton wrapcontent resetpm onPress={() => navigation.goBack()}>
             <Icon name="left" size={sizes.xviii} color={colors.grey} />
           </CButton>
         }
@@ -34,7 +34,7 @@ const ChangeEmail = () => {
       <Section p={sizes.xvi}>
         <Title title={'Change Email'} />
         <Spacer h={sizes.xii} />
-        <Input leftIcon={'email'} />
+        <Input leftIcon={'email'} placeholder="Enter email" />
         <Spacer h={sizes.viii} />
         <CText color={colors.primary}>
           We Will Send verification to your New Email

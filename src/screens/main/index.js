@@ -14,6 +14,7 @@ import Search from './Search';
 import Address from './Address';
 import Order from './Order';
 import Checkout from './Checkout';
+import OrderSuccess from './OrderSuccess';
 
 export {
   ChangeEmail,
@@ -31,5 +32,6 @@ export {
   Search,
   Address,
   Order,
-  Checkout
+  Checkout,
+  OrderSuccess
 };

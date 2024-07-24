@@ -18,11 +18,6 @@ export const accounts = [
   },
   {
     id: uuid.v4(),
-    name: 'Payment',
-    icon: 'creditcard',
-  },
-  {
-    id: uuid.v4(),
     name: 'Logout',
     icon: 'logout'
   }

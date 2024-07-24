@@ -12,10 +12,10 @@ import {
   ToolBar,
   Wrapper,
 } from '../../components';
+import {deleteProduct, updateQuantity} from '../../store/thunk/cart';
 import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
-import {deleteProduct, updateQuantity} from '../../store/thunk/cart';
-import { stackName } from '../../navigator/routeName';
+import {stackName} from '../../navigator/routeName';
 
 const Cart = ({navigation}) => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Cart = ({navigation}) => {
 
   const hasSelectedProduct = useMemo(() => {
     return cart.some(item => item.is_checked);
-  })
+  });
 
   const renderCartItem = useCallback(({item}) => {
     return (
@@ -102,6 +102,7 @@ const Cart = ({navigation}) => {
                         cartItemId: item._id,
                         productId: item.productId._id,
                         quantity: item.quantity - 1,
+                        is_checked: item.is_checked,
                       }),
                     );
                   }}
@@ -123,6 +124,7 @@ const Cart = ({navigation}) => {
                         cartItemId: item._id,
                         productId: item.productId._id,
                         quantity: item.quantity + 1,
+                        is_checked: item.is_checked,
                       }),
                     );
                   }}
@@ -166,7 +168,9 @@ const Cart = ({navigation}) => {
       </Section>
       {hasSelectedProduct && (
         <Section ph={sizes.xvi} pv={sizes.xvi}>
-          <CButton background={colors.primary} onPress={() => navigation.navigate()}>
+          <CButton
+            background={colors.primary}
+            onPress={() => navigation.navigate(stackName.checkout)}>
             <CText type="button">Check Out</CText>
           </CButton>
         </Section>

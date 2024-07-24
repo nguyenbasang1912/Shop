@@ -2,9 +2,11 @@ import {
   createNavigationContainerRef,
   NavigationContainer,
 } from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {StatusBar} from 'react-native';
-import {Login, Register} from '../screens/auth';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useEffect } from 'react';
+import { StatusBar } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Login, Register } from '../screens/auth';
 import {
   Address,
   ChangeEmail,
@@ -15,6 +17,7 @@ import {
   Gender,
   Name,
   Order,
+  OrderSuccess,
   PhoneNumber,
   Profile,
   Review,
@@ -22,11 +25,10 @@ import {
   SeeMore,
   WriteReview,
 } from '../screens/main';
+import { getMe } from '../store/thunk/auth';
 import TabNavigation from './TabNavigation';
-import {stackName} from './routeName';
-import {createRef, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {getMe} from '../store/thunk/auth';
+import { stackName } from './routeName';
+import NewAddress from '../screens/main/NewAddress';
 
 const Stack = createStackNavigator();
 export const navigationRef = createNavigationContainerRef(null);
@@ -80,6 +82,8 @@ function RootNavigation() {
           <Stack.Screen name={stackName.address} component={Address} />
           <Stack.Screen name={stackName.order} component={Order} />
           <Stack.Screen name={stackName.checkout} component={Checkout} />
+          <Stack.Screen name={stackName.orderSuccess} component={OrderSuccess} />
+          <Stack.Screen name={stackName.newAddress} component={NewAddress} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

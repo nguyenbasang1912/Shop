@@ -17,6 +17,8 @@ export const stackName = {
   address: 'Address',
   order: 'Order',
   checkout: 'Checkout',
+  orderSuccess: 'OrderSuccess',
+  newAddress: "NewAddress"
 };
 
 export const tabName = {

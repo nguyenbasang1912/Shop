@@ -15,8 +15,12 @@ import {
 import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
 import axiosInstance from '../../configs/axiosInstance';
+import {stackName} from '../../navigator/routeName';
 
 const Checkout = ({navigation}) => {
+  const {
+    status: {selectedAddress},
+  } = useSelector(state => state.user);
   const {cart} = useSelector(state => state.cart);
   const [promo, setPromo] = useState('');
   const [estimate, setEstimate] = useState(null);
@@ -77,31 +81,47 @@ const Checkout = ({navigation}) => {
           }
           style={containerAttr.bottomLine}
         />
-        <TouchableOpacity>
-          <Section p={sizes.xvi}>
-            <Row>
-              <Section style={{alignSelf: 'flex-start'}} f={1}>
-                <Row>
-                  <Icon
-                    name="enviromento"
-                    size={sizes.xvi}
-                    color={colors.primary}
-                  />
-                  <Spacer w={sizes.xvi} />
 
-                  <Section>
-                    <CText type="button" color={colors.dark}>
-                      Address
-                    </CText>
-                    <CText>{'123 Main St, Anytown, USA'}</CText>
-                    <CText>{'0999xxxxxxx'}</CText>
-                  </Section>
-                </Row>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(stackName.address, {type: 'pick'})
+          }>
+          {selectedAddress ? (
+            <Section p={sizes.xvi}>
+              <Row>
+                <Section style={{alignSelf: 'flex-start'}} f={1}>
+                  <Row>
+                    <Icon
+                      name="enviromento"
+                      size={sizes.xvi}
+                      color={colors.primary}
+                    />
+                    <Spacer w={sizes.xvi} />
+
+                    <Section>
+                      <CText type="button" color={colors.dark}>
+                        {selectedAddress?.name || ''}
+                      </CText>
+                      <CText>{selectedAddress?.address || ''}</CText>
+                      <CText>{selectedAddress?.phone || ''}</CText>
+                    </Section>
+                  </Row>
+                </Section>
+                <Icon name="right" size={sizes.xvi} color={colors.grey} />
+              </Row>
+            </Section>
+          ) : (
+            <Row>
+              <Section p={sizes.xxvi}>
+                <CText>
+                  Please click here to add an address to proceed to checkout.
+                </CText>
               </Section>
               <Icon name="right" size={sizes.xvi} color={colors.grey} />
             </Row>
-          </Section>
+          )}
         </TouchableOpacity>
+
         <Spacer style={containerAttr.topLine} h={sizes.xvi} />
         <Section ph={sizes.xvi}>
           {selectedProducts.map(product => {
@@ -159,7 +179,10 @@ const Checkout = ({navigation}) => {
             <Row justify={'space-between'}>
               <CText>Discount</CText>
               <CText color={colors.dark}>
-                -${(estimate?.totalAmount - estimate?.amountAfterUsePromo).toFixed(2) || 0}
+                -$
+                {(
+                  estimate?.totalAmount - estimate?.amountAfterUsePromo
+                ).toFixed(2) || 0}
               </CText>
             </Row>
             <Spacer h={sizes.xii} />
@@ -177,7 +200,9 @@ const Checkout = ({navigation}) => {
         </Section>
       </ScrollView>
       <Section p={sizes.xvi}>
-        <CButton background={colors.primary}>
+        <CButton
+          background={colors.primary}
+          onPress={() => navigation.navigate(stackName.orderSuccess)}>
           <CText type="button">Checkout</CText>
         </CButton>
       </Section>

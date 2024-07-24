@@ -1,4 +1,11 @@
-import {FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useCallback} from 'react';
 import {
   CButton,
@@ -12,39 +19,72 @@ import {
 import {sizes} from '../../utils/styles/sizes';
 import {colors, containerAttr} from '../../utils/styles';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {stackName} from '../../navigator/routeName';
+import {deleteAddress} from '../../store/thunk/user';
+import {selectAddress} from '../../store/slices/user';
 
-const Address = ({navigation}) => {
-  const {address} = useSelector(state => state.user);
+const Address = ({navigation, route}) => {
+  const {
+    userInfo: {address},
+    status,
+  } = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
-  const renderItem = useCallback(({item}) => {
-    return (
-      <TouchableOpacity>
-        <Section style={styles.containerItem} p={sizes.xxiv}>
-          <CText type="button" color={colors.dark}>
-            {item.name || ''}
-          </CText>
-          <Spacer h={sizes.xiv} />
-          <CText>{item.description || ''}</CText>
-          <Spacer h={sizes.xiv} />
-          <CText>{item.phone}</CText>
-          <Spacer h={sizes.xiv} />
-          <Row>
-            <CButton
-              wrapcontent
-              style={styles.button}
-              background={colors.primary}>
-              <CText type="button">Edit</CText>
-            </CButton>
-            <Spacer w={sizes.xxiv} />
-            <CButton wrapcontent resetpm>
-              <Icon name={'delete'} size={sizes.xxiv} color={colors.grey} />
-            </CButton>
-          </Row>
-        </Section>
-      </TouchableOpacity>
-    );
-  }, []);
+  console.log(status);
+
+  const renderItem = useCallback(
+    ({item}) => {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(selectAddress(item._id));
+            if (route?.params?.type === 'pick') {
+              navigation.goBack();
+            }
+          }}>
+          <Section
+            style={[
+              styles.containerItem,
+              status.selectedAddress?._id === item?._id &&
+                styles.containerItemActive,
+            ]}
+            p={sizes.xxiv}>
+            <CText type="button" color={colors.dark}>
+              {item.name || ''}
+            </CText>
+            <Spacer h={sizes.xiv} />
+            <CText>{item.address || ''}</CText>
+            <Spacer h={sizes.xiv} />
+            <CText>{item.phone || ''}</CText>
+            <Spacer h={sizes.xiv} />
+            <Row>
+              <CButton
+                onPress={() =>
+                  navigation.navigate(stackName.newAddress, {
+                    type: 'edit',
+                    id: item._id,
+                  })
+                }
+                wrapcontent
+                style={styles.button}
+                background={colors.primary}>
+                <CText type="button">Edit</CText>
+              </CButton>
+              <Spacer w={sizes.xxiv} />
+              <CButton
+                wrapcontent
+                resetpm
+                onPress={() => dispatch(deleteAddress(item._id))}>
+                <Icon name={'delete'} size={sizes.xxiv} color={colors.grey} />
+              </CButton>
+            </Row>
+          </Section>
+        </TouchableOpacity>
+      );
+    },
+    [status.selectedAddress],
+  );
 
   return (
     <Wrapper statusbar>
@@ -60,27 +100,17 @@ const Address = ({navigation}) => {
           </CButton>
         }
         rightComponent={
-          <CButton wrapcontent resetpm>
+          <CButton
+            wrapcontent
+            resetpm
+            onPress={() => navigation.navigate(stackName.newAddress)}>
             <Icon name="plus" size={sizes.xvi} color={colors.primary} />
           </CButton>
         }
         style={containerAttr.bottomLine}
       />
       <FlatList
-        data={[
-          {
-            _id: 1,
-            name: 'new address',
-            description: 'New address',
-            phone: '0889275378',
-          },
-          {
-            _id: 2,
-            name: 'new address',
-            description: 'New address',
-            phone: '0889275378',
-          },
-        ]}
+        data={address}
         renderItem={renderItem}
         keyExtractor={item => item._id.toString()}
         style={styles.flatlistStyle}

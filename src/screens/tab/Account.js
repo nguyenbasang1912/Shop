@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   CButton,
   CText,
@@ -20,14 +20,20 @@ import {sizes} from '../../utils/styles/sizes';
 
 const Account = ({navigation}) => {
   const dispatch = useDispatch();
+  const {status} = useSelector(state => state.auth);
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    navigationRef.resetRoot({
-      index: 1,
-      routes: [{name: stackName.login}],
-    });
   };
+
+  useEffect(() => {
+    if (!status.isLoggedIn) {
+      navigationRef.resetRoot({
+        index: 0,
+        routes: [{name: stackName.login}],
+      });
+    }
+  }, [status.isLoggedIn]);
 
   return (
     <Wrapper statusbar>
@@ -47,7 +53,7 @@ const Account = ({navigation}) => {
             resetpm
             style={styles.button}
             onPress={() => {
-              if (item.name !== accounts[4].name) {
+              if (item.name !== accounts[3].name) {
                 navigation.navigate(stackName[item.name.toLowerCase()]);
                 return;
               }
