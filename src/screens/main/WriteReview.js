@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Image, ScrollView, StyleSheet, TextInput} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  ToastAndroid,
+} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {
@@ -15,12 +22,18 @@ import {
 } from '../../components';
 import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
+import axiosInstance from '../../configs/axiosInstance';
+import {useDispatch} from 'react-redux';
+import {turnOffComment} from '../../store/slices/order';
 
-const WriteReview = ({navigation}) => {
+const WriteReview = ({navigation, route}) => {
+  const {productId, orderId} = route?.params || {};
   const [currentRate, setCurrentRate] = useState(0);
   const [images, setImages] = useState([]);
-
-  console.log(images);
+  const [content, setContent] = useState('');
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const pickerImage = async () => {
     const imgs = await launchImageLibrary({
@@ -30,10 +43,48 @@ const WriteReview = ({navigation}) => {
       selectionLimit: 0,
     });
 
-    // console.log(imgs);
-    // return;
-
     setImages(imgs.assets || []);
+  };
+
+  const submitComment = async () => {
+    const body = new FormData();
+
+    for (const image of images) {
+      body.append('imgs', {
+        name: image.fileName,
+        type: image.type,
+        uri: image.uri,
+      });
+    }
+
+    body.append('productId', productId);
+    body.append('orderId', orderId);
+    body.append('rating', currentRate);
+    body.append('content', content);
+
+    try {
+      setLoading(true);
+      const response = await axiosInstance.post('/api/comments', body, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        timeout: 20000,
+      });
+
+      ToastAndroid.show('Comment success', 1000);
+      navigation.goBack();
+      setImages([]);
+      setCurrentRate(0);
+      setError(false);
+      setContent('');
+      setLoading(false);
+      dispatch(turnOffComment());
+      return;
+    } catch (error) {
+      console.log('error', error);
+      setLoading(false);
+      return setError(true);
+    }
   };
 
   return (
@@ -82,6 +133,8 @@ const WriteReview = ({navigation}) => {
             <Title title={'Write Your Review'} />
             <Spacer h={sizes.xii} />
             <TextInput
+              value={content}
+              onChangeText={setContent}
               placeholder="Write your review here"
               style={styles.textField}
               multiline={true}
@@ -114,8 +167,17 @@ const WriteReview = ({navigation}) => {
               </CButton>
             </Row>
             <Spacer h={sizes.xx} />
-            <CButton background={colors.primary}>
-              <CText type="button">Send</CText>
+            <CButton
+              background={colors.primary}
+              onPress={() => {
+                if (loading) return;
+                submitComment();
+              }}>
+              {loading ? (
+                <ActivityIndicator size={sizes.xvi} color={colors.white} />
+              ) : (
+                <CText type="button">Send</CText>
+              )}
             </CButton>
           </Section>
         </Section>

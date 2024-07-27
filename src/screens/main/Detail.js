@@ -169,7 +169,7 @@ const Detail = ({navigation, route}) => {
               </Row>
 
               <Spacer h={8} />
-              <RatingBar rate={4.5} disable />
+              <RatingBar rate={product.rate || 0} disable />
               <Spacer h={16} />
               <CText type="button" color={colors.primary} size={sizes.xx}>
                 {(product.product_price * (1 - product.saleOff / 100)).toFixed(

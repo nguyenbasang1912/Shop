@@ -14,6 +14,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import { orderReducer } from './slices/order';
 
 const persistConfig = {
   key: 'root',
@@ -28,6 +29,7 @@ export const store = configureStore({
     cart: cartReducer,
     favorite: favoriteReducer,
     user: userReducer,
+    order: orderReducer
   },
   middleware: getDefaultMiddleware => {
     return getDefaultMiddleware({

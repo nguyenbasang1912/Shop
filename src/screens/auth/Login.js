@@ -1,6 +1,12 @@
 import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {ActivityIndicator, Image, ScrollView, StyleSheet} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  StyleSheet,
+  ToastAndroid,
+} from 'react-native';
 import * as yup from 'yup';
 import {CButton, CText, Input, Row, Spacer, Wrapper} from '../../components';
 import {GoogleLogin} from '../../configs/google/googleSignIn';
@@ -19,8 +25,10 @@ const Login = ({navigation}) => {
     if (status.success) {
       navigation.navigate(stackName.tab);
       dispatch(getMe());
+    } else if (status.error) {
+      ToastAndroid.show('Login failed, invalid email or password', 1000);
     }
-  }, [status.success]);
+  }, [status]);
 
   const {t} = useTranslation();
   const {error, submitForm, values, onChangeValue} = useForm({
@@ -40,7 +48,9 @@ const Login = ({navigation}) => {
     }),
     onSubmit: (values, {resetForm}) => {
       dispatch(login(values));
-      resetForm();
+      if (status.isLoggedIn) {
+        resetForm();
+      }
     },
   });
 

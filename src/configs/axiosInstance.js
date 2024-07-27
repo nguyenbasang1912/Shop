@@ -38,7 +38,6 @@ axiosInstance.interceptors.response.use(
 
       const originResponse = await axiosInstance(originRequest);
 
-      console.log('url', originRequest.url);
       return originResponse;
     } else if (
       error.response.status === 403 ||

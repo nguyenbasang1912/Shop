@@ -31,8 +31,6 @@ const Address = ({navigation, route}) => {
   } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
-  console.log(status);
-
   const renderItem = useCallback(
     ({item}) => {
       return (

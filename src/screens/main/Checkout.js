@@ -1,7 +1,13 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Image, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   CButton,
   CText,
@@ -16,11 +22,18 @@ import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
 import axiosInstance from '../../configs/axiosInstance';
 import {stackName} from '../../navigator/routeName';
+import {createOrder} from '../../store/thunk/order';
+import {navigationRef} from '../../navigator/RootNavigation';
+import {reset} from '../../store/slices/order';
 
 const Checkout = ({navigation}) => {
   const {
     status: {selectedAddress},
   } = useSelector(state => state.user);
+  const {
+    status: {loading, err, success},
+  } = useSelector(state => state.order);
+  const dispatch = useDispatch();
   const {cart} = useSelector(state => state.cart);
   const [promo, setPromo] = useState('');
   const [estimate, setEstimate] = useState(null);
@@ -60,6 +73,16 @@ const Checkout = ({navigation}) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (success) {
+      navigationRef.resetRoot({
+        index: 1,
+        routes: [{name: stackName.tab}, {name: stackName.orderSuccess}],
+      });
+      dispatch(reset());
+    }
+  }, [success]);
 
   return (
     <Wrapper statusbar>
@@ -202,8 +225,21 @@ const Checkout = ({navigation}) => {
       <Section p={sizes.xvi}>
         <CButton
           background={colors.primary}
-          onPress={() => navigation.navigate(stackName.orderSuccess)}>
-          <CText type="button">Checkout</CText>
+          onPress={() =>
+            dispatch(
+              createOrder({
+                promo: promo,
+                address: selectedAddress.address,
+                phone: selectedAddress.phone,
+                payment: 'visa',
+              }),
+            )
+          }>
+          {loading ? (
+            <ActivityIndicator size={sizes.xviii} color={colors.white} />
+          ) : (
+            <CText type="button">Checkout</CText>
+          )}
         </CButton>
       </Section>
     </Wrapper>

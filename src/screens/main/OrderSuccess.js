@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { CButton, CText, Row, Section, Spacer, Wrapper } from '../../components';
-import { colors } from '../../utils/styles';
-import { sizes } from '../../utils/styles/sizes';
-import { stackName } from '../../navigator/routeName';
+import {CButton, CText, Row, Section, Spacer, Wrapper} from '../../components';
+import {colors} from '../../utils/styles';
+import {sizes} from '../../utils/styles/sizes';
+import {stackName} from '../../navigator/routeName';
+import {navigationRef} from '../../navigator/RootNavigation';
 
 const OrderSuccess = ({navigation}) => {
   return (
@@ -19,8 +20,15 @@ const OrderSuccess = ({navigation}) => {
           <Spacer h={sizes.viii} />
           <CText>thank you for shopping using lafyuu</CText>
           <Spacer h={sizes.xvi} />
-          <CButton background={colors.primary} onPress={() => navigation.navigate(stackName.order)}>
-            <CText type='button'>Back To Order</CText>
+          <CButton
+            background={colors.primary}
+            onPress={() => {
+              navigationRef.resetRoot({
+                index: 1,
+                routes: [{name: stackName.tab}, {name: stackName.order}],
+              });
+            }}>
+            <CText type="button">Back To Order</CText>
           </CButton>
         </Section>
       </Row>

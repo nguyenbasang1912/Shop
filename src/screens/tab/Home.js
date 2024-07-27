@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   FlatList,
   Keyboard,
@@ -18,16 +18,17 @@ import {
   Title,
   Wrapper,
 } from '../../components';
-import { fetchChildrenCategories, fetchProducts } from '../../configs/api';
-import { data } from '../../example/data/slide';
-import { stackName, tabName } from '../../navigator/routeName';
-import { colors, containerAttr } from '../../utils/styles';
-import { sizes, WINDOW_WIDTH } from '../../utils/styles/sizes';
+import {fetchChildrenCategories, fetchProducts} from '../../configs/api';
+import {data} from '../../example/data/slide';
+import {stackName, tabName} from '../../navigator/routeName';
+import {colors, containerAttr} from '../../utils/styles';
+import {sizes, WINDOW_WIDTH} from '../../utils/styles/sizes';
 
 const Home = ({navigation}) => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [saleOff, setSaleOff] = useState([]);
+  const [input, setInput] = useState('');
 
   useEffect(() => {
     Promise.all([
@@ -62,7 +63,7 @@ const Home = ({navigation}) => {
   };
 
   const onPressExplore = () => {
-    navigation.jumpTo(tabName.explore);
+    navigation.navigate(stackName.search, {keyword: input});
   };
 
   const renderProduct = useCallback(
@@ -102,10 +103,14 @@ const Home = ({navigation}) => {
           <Section p={16} style={containerAttr.bottomLine}>
             <Row>
               <Input
+                value={input}
+                onChange={setInput}
                 flex={1}
                 placeholder="Search input"
                 leftIcon="search"
-                onFocusInput={onPressExplore}
+                onSubmitEditing={() => {
+                  onPressExplore();
+                }}
               />
               <Spacer w={16} />
               <CButton

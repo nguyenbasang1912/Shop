@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {
@@ -22,6 +22,7 @@ import {createNewAddress, updateAddress} from '../../store/thunk/user';
 const NewAddress = ({navigation, route}) => {
   const {type = 'new', id = ''} = route?.params || {};
   const {userInfo} = useSelector(state => state.user);
+  const [isDefault, setIsDefault] = useState(false)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,6 +58,7 @@ const NewAddress = ({navigation, route}) => {
               name: values.name,
               address: values.address,
               phone: values.phone,
+              isDefault: isDefault
             },
           }),
         );
@@ -106,7 +108,7 @@ const NewAddress = ({navigation, route}) => {
         />
         <Spacer h={sizes.xvi} />
         <Row>
-          <Checkbox callback={isChecked => {}} />
+          <Checkbox callback={isChecked => {setIsDefault(isChecked)}} />
           <Spacer w={sizes.viii} />
           <CText type="button" color={colors.dark}>
             Save as default address
