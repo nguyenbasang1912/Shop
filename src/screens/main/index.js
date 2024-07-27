@@ -9,6 +9,12 @@ import PhoneNumber from './PhoneNumber';
 import Profile from './Profile';
 import Review from './Review';
 import WriteReview from './WriteReview';
+import SeeMore from './SeeMore';
+import Search from './Search';
+import Address from './Address';
+import Order from './Order';
+import Checkout from './Checkout';
+import OrderSuccess from './OrderSuccess';
 
 export {
   ChangeEmail,
@@ -22,4 +28,10 @@ export {
   Profile,
   Review,
   WriteReview,
+  SeeMore,
+  Search,
+  Address,
+  Order,
+  Checkout,
+  OrderSuccess
 };

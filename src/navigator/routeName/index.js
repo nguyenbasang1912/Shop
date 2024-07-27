@@ -12,6 +12,13 @@ export const stackName = {
   phone: 'Phone',
   changePass: 'ChangePass',
   changeEmail: 'ChangeEmail',
+  seeMore: 'SeeMore',
+  search: 'Search',
+  address: 'Address',
+  order: 'Order',
+  checkout: 'Checkout',
+  orderSuccess: 'OrderSuccess',
+  newAddress: "NewAddress"
 };
 
 export const tabName = {

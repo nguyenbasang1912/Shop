@@ -13,6 +13,7 @@ export const sizes = {
   xxiv: 24,
   xxvi: 26,
   xxxii: 32,
+  xxxx: 40,
 };
 
 export const {width: WINDOW_WIDTH, height: WINDOW_HEIGHT} =

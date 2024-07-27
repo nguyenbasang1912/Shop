@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   FlatList,
@@ -7,16 +7,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../utils/styles';
-import {WINDOW_WIDTH, sizes} from '../utils/styles/sizes';
-import {CText, CountDown, Row, Spacer} from '.';
+import { CText, CountDown, Row, Spacer } from '.';
+import { colors } from '../utils/styles';
+import { WINDOW_WIDTH, sizes } from '../utils/styles/sizes';
 
-const Carousel = ({data}) => {
+const Carousel = ({data, renderItem}) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const flatlistRef = useRef(null);
 
   useEffect(() => {
+    if (data.length === 0) return;
+
     const timeout = setTimeout(() => {
       if (selectedIndex >= data.length - 1) {
         setSelectedIndex(0);
@@ -64,12 +66,12 @@ const Carousel = ({data}) => {
       <FlatList
         ref={flatlistRef}
         data={data}
-        renderItem={renderBanner}
+        renderItem={renderItem || renderBanner}
         pagingEnabled
         bounces={false}
         horizontal
         showsHorizontalScrollIndicator={false}
-        keyExtractor={item => item.id}
+        keyExtractor={(item, index) => index.toString()}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},

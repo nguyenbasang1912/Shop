@@ -12,7 +12,6 @@ import {
   Wrapper,
 } from '../../components';
 import {comment} from '../../example/data/comment';
-import {stackName} from '../../navigator/routeName';
 import {colors} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
 
@@ -68,14 +67,6 @@ const Review = ({navigation}) => {
         ItemSeparatorComponent={() => <Spacer h={24} />}
         showsVerticalScrollIndicator={false}
       />
-
-      <Section p={16}>
-        <CButton
-          background={colors.primary}
-          onPress={() => navigation.navigate(stackName.writeReview)}>
-          <CText type="button">Write Review</CText>
-        </CButton>
-      </Section>
     </Wrapper>
   );
 };

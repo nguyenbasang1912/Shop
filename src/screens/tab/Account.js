@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   CButton,
   CText,
@@ -11,11 +12,29 @@ import {
   Wrapper,
 } from '../../components';
 import {accounts} from '../../configs/data/profile';
+import {navigationRef} from '../../navigator/RootNavigation';
 import {stackName} from '../../navigator/routeName';
+import {logoutUser} from '../../store/thunk/auth';
 import {colors} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
 
 const Account = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {status} = useSelector(state => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+
+  useEffect(() => {
+    if (!status.isLoggedIn) {
+      navigationRef.resetRoot({
+        index: 0,
+        routes: [{name: stackName.login}],
+      });
+    }
+  }, [status.isLoggedIn]);
+
   return (
     <Wrapper statusbar>
       <ToolBar
@@ -33,7 +52,13 @@ const Account = ({navigation}) => {
             key={item.id}
             resetpm
             style={styles.button}
-            onPress={() => navigation.navigate(stackName.changeEmail)}>
+            onPress={() => {
+              if (item.name !== accounts[3].name) {
+                navigation.navigate(stackName[item.name.toLowerCase()]);
+                return;
+              }
+              handleLogout();
+            }}>
             <Section p={sizes.xvi}>
               <Row>
                 <Icon

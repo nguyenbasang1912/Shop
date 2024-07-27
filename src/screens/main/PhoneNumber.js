@@ -14,12 +14,12 @@ import {
 import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
 
-const PhoneNumber = () => {
+const PhoneNumber = ({navigation}) => {
   return (
     <Wrapper statusbar>
       <ToolBar
         leftComponent={
-          <CButton wrapcontent resetpm>
+          <CButton wrapcontent resetpm onPress={() => navigation.goBack()}>
             <Icon name="left" size={sizes.xviii} color={colors.grey} />
           </CButton>
         }
@@ -33,12 +33,12 @@ const PhoneNumber = () => {
       <Section p={sizes.xvi}>
         <Title title={'Phone Number'} />
         <Spacer h={sizes.xii} />
-        <Input type={'number-pad'} leftIcon={'mobile-alt'} />
+        <Input type={'number-pad'} leftIcon={'mobile-alt'} placeholder='Enter phone number' />
       </Section>
       <Spacer f={1} />
       <Section p={sizes.xxvi}>
         <CButton background={colors.primary}>
-          <CText type="button">Next</CText>
+          <CText type="button">Save</CText>
         </CButton>
       </Section>
     </Wrapper>

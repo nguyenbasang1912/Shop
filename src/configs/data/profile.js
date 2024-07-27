@@ -18,9 +18,9 @@ export const accounts = [
   },
   {
     id: uuid.v4(),
-    name: 'Payment',
-    icon: 'creditcard',
-  },
+    name: 'Logout',
+    icon: 'logout'
+  }
 ];
 
 export const profiles = [

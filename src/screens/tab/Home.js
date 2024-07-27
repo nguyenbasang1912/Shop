@@ -1,16 +1,15 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   FlatList,
   Keyboard,
   ScrollView,
-  StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {
-  CButton,
   Carousel,
   CategoryItem,
+  CButton,
   Input,
   ProductItem,
   Row,
@@ -19,42 +18,80 @@ import {
   Title,
   Wrapper,
 } from '../../components';
+import {fetchChildrenCategories, fetchProducts} from '../../configs/api';
 import {data} from '../../example/data/slide';
 import {stackName, tabName} from '../../navigator/routeName';
 import {colors, containerAttr} from '../../utils/styles';
-import {sizes} from '../../utils/styles/sizes';
+import {sizes, WINDOW_WIDTH} from '../../utils/styles/sizes';
 
 const Home = ({navigation}) => {
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [saleOff, setSaleOff] = useState([]);
+  const [input, setInput] = useState('');
+
+  useEffect(() => {
+    Promise.all([
+      fetchChildrenCategories(),
+      fetchProducts(1),
+      fetchProducts(1, 'sale_off'),
+    ])
+      .then(response => {
+        setCategories(response[0]);
+        setProducts(response[1].products);
+        setSaleOff(response[2].products);
+      })
+      .catch(console.log);
+  }, []);
+
   const renderCategories = ({item, index}) => {
     return (
       <>
-        <CategoryItem source={item.image} title={item.title} />
+        <CategoryItem
+          onClick={() =>
+            navigation.navigate(stackName.seeMore, {
+              categoryId: item._id,
+              title: item.category_name,
+            })
+          }
+          source={{uri: item.category_thumbnail}}
+          title={item.category_name}
+        />
         <Spacer w={sizes.xx} />
       </>
     );
   };
 
   const onPressExplore = () => {
-    navigation.jumpTo(tabName.explore);
+    navigation.navigate(stackName.search, {keyword: input});
   };
 
-  const renderProduct = ({item, index}) => {
-    return (
-      <>
-        <ProductItem
-          title={item.title}
-          price={item.price}
-          source={item.image}
-          onPress={() => console.log(item)}
-          cost={item.cost}
-          saleoff={item.saleoff}
-          rate={item.rate}
-          width={141}
-        />
-        <Spacer w={16} />
-      </>
-    );
-  };
+  const renderProduct = useCallback(
+    (width = 130, isPadding = true) =>
+      ({item, index}) => {
+        return (
+          <>
+            <ProductItem
+              title={item.product_name}
+              price={`$${
+                item.saleOff
+                  ? (item.product_price * (1 - item.saleOff / 100)).toFixed(2)
+                  : item.product_price
+              }`}
+              source={{uri: item.product_thumbnail}}
+              onPress={() =>
+                navigation.navigate(stackName.detail, {productId: item._id})
+              }
+              cost={item.saleOff && item.product_price}
+              saleoff={item.saleOff && item.saleOff + '% off'}
+              width={width}
+            />
+            {isPadding && <Spacer w={16} />}
+          </>
+        );
+      },
+    [],
+  );
 
   return (
     <ScrollView
@@ -62,13 +99,18 @@ const Home = ({navigation}) => {
       showsVerticalScrollIndicator={false}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <Wrapper statusbar>
-          <Section p={16} style={styles.section} f={1}>
+          {/** Search Bar */}
+          <Section p={16} style={containerAttr.bottomLine}>
             <Row>
               <Input
+                value={input}
+                onChange={setInput}
                 flex={1}
                 placeholder="Search input"
                 leftIcon="search"
-                onFocusInput={onPressExplore}
+                onSubmitEditing={() => {
+                  onPressExplore();
+                }}
               />
               <Spacer w={16} />
               <CButton
@@ -85,130 +127,56 @@ const Home = ({navigation}) => {
             </Row>
           </Section>
           <Spacer h={16} />
+          {/** Carousel */}
           <Carousel data={data} />
+          {/** Categories */}
           <Section ph={16}>
-            <Title
-              title="Category"
-              more="More Category"
-              titleMoreColor={colors.primary}
-              onClickMore={() => console.log('more')}
-            />
+            <Title title="Category" />
             <Spacer h={12} />
             <FlatList
-              data={[
-                {
-                  title: 'Category 1',
-                  image: require('../../assets/common/icon.png'),
-                },
-                {
-                  title: 'Category 2',
-                  image: require('../../assets/common/icon.png'),
-                },
-                {
-                  title: 'Category 3',
-                  image: require('../../assets/common/icon.png'),
-                },
-              ]}
+              showsHorizontalScrollIndicator={false}
+              data={categories}
               renderItem={renderCategories}
               horizontal
             />
-            <Spacer h={24} />
-            <Title
-              title={'Flash Sale'}
-              more={'See More'}
-              onClickMore={() => navigation.navigate(stackName.detail)}
-            />
-            <Spacer h={12} />
-            <FlatList
-              horizontal
-              data={[
-                {
-                  id: '1',
-                  title: 'Nike Air Max 270 React ENG',
-                  price: '$199',
-                  image: require('../../assets/common/img-product.png'),
-                  cost: '$299',
-                  saleoff: '10%',
-                },
-                {
-                  id: '2',
-                  title: 'Nike Air Max 270 React ENG',
-                  price: '$199',
-                  image: require('../../assets/common/img-product.png'),
-                  cost: '$299',
-                  saleoff: '10%',
-                },
-                {
-                  id: '3',
-                  title: 'Nike Air Max 270 React ENG',
-                  price: '$199',
-                  image: require('../../assets/common/img-product.png'),
-                  cost: '$299',
-                  saleoff: '10%',
-                },
-              ]}
-              renderItem={renderProduct}
-              showsHorizontalScrollIndicator={false}
-            />
-
-            <Spacer h={24} />
-            <Title title={'Mega Sale'} more={'See More'} />
-            <Spacer h={12} />
-            <FlatList
-              horizontal
-              data={[
-                {
-                  id: '1',
-                  title: 'Nike Air Max 270 React ENG',
-                  price: '$199',
-                  image: require('../../assets/common/img-product.png'),
-                  cost: '$299',
-                  saleoff: '10%',
-                },
-                {
-                  id: '2',
-                  title: 'Nike Air Max 270 React ENG',
-                  price: '$199',
-                  image: require('../../assets/common/img-product.png'),
-                  cost: '$299',
-                  saleoff: '10%',
-                },
-                {
-                  id: '3',
-                  title: 'Nike Air Max 270 React ENG',
-                  price: '$199',
-                  image: require('../../assets/common/img-product.png'),
-                  cost: '$299',
-                  saleoff: '10%',
-                },
-                {
-                  id: '4',
-                  title: 'Nike Air Max 270 React ENG',
-                  price: '$199',
-                  image: require('../../assets/common/img-product.png'),
-                  cost: '$299',
-                  saleoff: '10%',
-                },
-                {
-                  id: '5',
-                  title: 'Nike Air Max 270 React ENG',
-                  price: '$199',
-                  image: require('../../assets/common/img-product.png'),
-                  cost: '$299',
-                  saleoff: '10%',
-                },
-                {
-                  id: '6',
-                  title: 'Nike Air Max 270 React ENG',
-                  price: '$199',
-                  image: require('../../assets/common/img-product.png'),
-                  cost: '$299',
-                  saleoff: '10%',
-                },
-              ]}
-              renderItem={renderProduct}
-              showsHorizontalScrollIndicator={false}
-            />
+          </Section>
+          <Section p={sizes.xvi}>
+            {/** Sale off product */}
+            <Section>
+              <Title
+                title={'Sale off'}
+                more={'See more'}
+                onClickMore={() => {
+                  navigation.navigate(stackName.seeMore, {
+                    categoryId: 'sale_off',
+                    title: 'Sale Off',
+                  });
+                }}
+              />
+              <Spacer h={12} />
+              <FlatList
+                horizontal
+                data={saleOff}
+                renderItem={renderProduct()}
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={item => item._id}
+              />
+            </Section>
+            <Spacer h={sizes.xxiv} />
+            {/** Common product */}
+            <Section>
+              <Title title={'Recommended product'} more={'See more'} />
+              <Spacer h={sizes.xii} />
+              <FlatList
+                scrollEnabled={false}
+                data={products}
+                renderItem={renderProduct(WINDOW_WIDTH / 2 - 16 - 6, false)}
+                keyExtractor={item => item._id}
+                ItemSeparatorComponent={<Spacer h={sizes.xii} />}
+                columnWrapperStyle={containerAttr.gap12}
+                numColumns={2}
+              />
+            </Section>
           </Section>
         </Wrapper>
       </TouchableWithoutFeedback>
@@ -217,10 +185,3 @@ const Home = ({navigation}) => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  section: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.light,
-  },
-});

@@ -13,15 +13,20 @@ import {
 } from '../../components';
 import {colors, containerAttr} from '../../utils/styles';
 import {sizes} from '../../utils/styles/sizes';
+import {data} from '../../example/data/slide';
 
-const genders = ['Male', 'Female', 'Other'];
+const genders = [
+  {label: 'Male', value: 'male'},
+  {label: 'Female', value: 'female'},
+  {label: 'Other', value: 'other'},
+];
 
-const Gender = () => {
+const Gender = ({navigation}) => {
   return (
     <Wrapper statusbar>
       <ToolBar
         leftComponent={
-          <CButton wrapcontent resetpm>
+          <CButton wrapcontent resetpm onPress={() => navigation.goBack()}>
             <Icon name="left" size={sizes.xviii} color={colors.grey} />
           </CButton>
         }
@@ -35,7 +40,13 @@ const Gender = () => {
       <Section p={sizes.xvi}>
         <Title title={'Choose Gender'} sizeTitle={sizes.xvi} />
         <Spacer h={sizes.xii} />
-        <CDropdown />
+        <CDropdown data={genders} />
+      </Section>
+      <Spacer f={1} />
+      <Section p={sizes.xvi}>
+        <CButton background={colors.primary}>
+          <CText type="button">Save</CText>
+        </CButton>
       </Section>
     </Wrapper>
   );

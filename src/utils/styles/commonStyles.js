@@ -59,9 +59,21 @@ export const textAttr = StyleSheet.create({
 });
 
 export const containerAttr = StyleSheet.create({
+  resetpm: {
+    padding: 0,
+    margin: 0,
+    marginHorizontal: 0,
+    marginVertical: 0,
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+  },
   bottomLine: {
     borderBottomWidth: 1,
     borderBottomColor: colors.light,
+  },
+  topLine: {
+    borderTopWidth: 1,
+    borderTopColor: colors.light,
   },
   container: {
     flex: 1,
@@ -87,5 +99,9 @@ export const containerAttr = StyleSheet.create({
   },
   borderColor: {
     borderColor: colors.light,
+    borderWidth: 1,
   },
+  gap12: {
+    gap: 12,
+  }
 });
